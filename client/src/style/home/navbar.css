@@ -1,0 +1,45 @@
+.Logo-Moodle{
+  width: 100px;
+  margin-right: 1px;
+  margin-left: 30px;
+}
+
+header {
+  height: 110px;
+  display: flex;
+  align-items: center;
+  padding-block: 10px;
+  background-color: rgb(103, 146, 183);
+
+  
+}
+
+header a {
+  text-decoration: none;
+  color: #f2f1f1;
+  font-weight: 600;
+  padding: 5px 20px;
+  font-size: 1.5rem;
+}
+
+header h1{
+  color: #f2f1f1;
+  font-weight: 600;
+  padding: 5px 20px;
+  margin-right: auto;
+  margin-left:0px;
+  text-decoration: none;
+  font-family: 'Nunito', sans-serif;
+}
+
+header a:hover {
+  color: #161616;
+  text-decoration: underline;
+}
+
+header nav{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-right: 30px;
+}

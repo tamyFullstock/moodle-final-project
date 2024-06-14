@@ -1,0 +1,75 @@
+import mysql from 'mysql2';
+import con from "./connection.js"
+
+
+const lessons=[
+    {
+        "id": 1,
+        "title": "the secrets of math",
+        "year": 2021,
+        "month": 12, 
+        "day": 3,
+        "hour": 13,
+        "course_id": 1
+    },
+    {
+        "id": 2,
+        "title": "functions",
+        "year": 2021,
+        "month": 11, 
+        "day": 5,
+        "hour": 9,
+        "course_id": 1
+  },
+  {
+      "id": 3,
+      "title": "computers communication",
+      "year": 2022,
+      "month": 12, 
+      "day": 3,
+      "hour": 11,
+      "course_id": 2
+  }
+   
+];
+
+const createLessonsTable = function(){
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    //create table lessons
+    var sql = `CREATE TABLE IF NOT EXISTS lessons 
+    (
+      id INT PRIMARY KEY AUTO_INCREMENT,
+      title VARCHAR(255),
+      year INT,
+      month INT,
+      day INT,
+      hour INT,
+      course_id INT,
+      CONSTRAINT CIDC FOREIGN KEY (course_id) REFERENCES courses(id),
+      CONSTRAINT DC CHECK (day <= 31 AND day >= 1 AND hour >= 0 AND hour <= 24 AND month >= 1 AND month <= 12 AND year >= 0)
+      )`;
+      con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Lessons table created");
+    });
+    //insert data into lessons table
+    for (let i = 0; i< lessons.length; i++){
+      var sql = `INSERT INTO lessons (id, title, year, month, day, hour, course_id) VALUES ('${lessons[i].id}','${lessons[i].title}','${lessons[i].year}','${lessons[i].month}','${lessons[i].day}','${lessons[i].hour}','${lessons[i].course_id}')`;
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log(`${i} record inserted with id: ${result.insertId}`);
+    });
+    }
+    //print all data from lessons table
+    con.query("SELECT * FROM lessons", function (err, result, fields) {
+      if (err) throw err;
+      console.log(result);
+    });
+  });
+}
+
+export default createLessonsTable;
+
+  

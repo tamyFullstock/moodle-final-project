@@ -1,0 +1,183 @@
+/* Container for the entire lesson details section */
+.item-details-first-container {
+    padding: 20px;
+    background-color: #f4f4f9;
+    max-width: 900px;
+    margin: 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+/* Inner container for organizing content */
+.item-details-second-container {
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+  
+/* Title of the lesson */
+.item-details-second-container h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+  
+/* General text styling for details */
+.item-details-second-container p {
+    color: #666;
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+  
+/* Heading for the homework section */
+.item-details-second-container h3 {
+    margin-top: 30px;
+    color: #333;
+    font-size: 1.8em;
+}
+  
+/* List styling for homework items */
+.item-details-second-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+  
+/* Individual homework item styling */
+.item-details-second-container ul li {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+/* Paragraph styling within each homework item */
+.item-details-second-container ul li p {
+    margin: 0;
+    color: #666;
+    font-size: 1.1em;
+    flex-grow: 1; /* Allow the paragraph to take available space */
+}
+  
+/* Button styling for opening PDF files */
+.item-details-second-container ul li button.pdf-button,
+.add-item-button {
+    background-color: #007bff; /* Shade of blue */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-left: 10px;
+}
+  
+/* Hover effect for PDF buttons */
+.item-details-second-container ul li button.pdf-button:hover,
+.add-item-button:hover {
+    background-color: #0056b3; /* Darker shade of blue */
+    transform: scale(1.05);
+}
+
+/* Button styling for delete and update buttons */
+.item-details-second-container ul li button.delete-button,
+.item-details-second-container ul li button.update-button {
+    background-color: #6c757d; /* Shade of gray */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-left: 10px;
+}
+
+/* Hover effect for delete and update buttons */
+.item-details-second-container ul li button.delete-button:hover,
+.item-details-second-container ul li button.update-button:hover {
+    background-color: #5a6268; /* Darker shade of gray */
+    transform: scale(1.05);
+}
+
+.item-details-second-container ul li button:last-child {
+    margin-right: 0;
+}
+
+/* Styling for the "Add Homework" button */
+.add-item-button {
+    margin: 20px auto;
+    margin-right: 10px;
+    background-color: #007bff; /* Shade of blue */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+  
+/* Hover effect for "Add Homework" button */
+.add-item-button:hover {
+    background-color: #0056b3; /* Darker shade of blue */
+    transform: scale(1.05);
+}
+  
+/* Styling for the "Back to Lessons" button */
+.back-button1 {
+    margin-top: 20px;
+    margin-left: 10px;
+    background-color: #4caf50; /* Shade of green */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: background-color 0.3s, transform 0.2s;
+}
+  
+/* Hover effect for "Back to Lessons" button */
+.back-button1:hover {
+    background-color: #388e3c; /* Darker shade of green */
+    transform: scale(1.05);
+}
+
+/* CSS for modal background */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Ensure it is above other elements */
+}
+  
+/* CSS for modal content */
+.modal-content {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 100%;
+    text-align: left; /* Optional: Align text to the left */
+}
+
+/* Ensure the buttons have the correct margin and alignment */
+.item-details-second-container ul li button.pdf-button,
+.item-details-second-container ul li button.delete-button,
+.item-details-second-container ul li button.update-button {
+    margin-left: 10px;
+    margin-right: 0;
+}

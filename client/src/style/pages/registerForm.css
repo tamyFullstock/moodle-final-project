@@ -1,0 +1,89 @@
+body{
+    background-color: rgb(154, 176, 195)
+}
+
+.input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+  
+.signForm {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+}
+
+.signContainer{
+    width : 100%;
+    min-height: 600px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(227, 233, 237);
+}
+
+.formTitle-form{
+    color: rgb(60, 100, 136);
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: none;
+}
+
+.formTitle h1{
+    color: rgb(60, 100, 136);
+    text-align: center;
+}
+
+.btn-form{
+    width: 200px;
+    background-color: rgb(60, 100, 136);
+    color: white;
+    padding: 14px 20px;
+    margin-bottom: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.btn-form:hover {
+    background-color:  rgb(46, 83, 116);
+}
+  
+.colsContainer{
+    display: flex;
+    justify-content: space-around;
+    gap:50px;
+}
+
+.registerForm-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.label-address{
+    margin-bottom: 20px;
+    background-color: rgb(159, 186, 209);
+}
+
+.label-company{
+    margin-bottom: 20px;
+    background-color: rgb(159, 186, 209);
+}
+
+.geo-label{
+    margin-bottom: 20px;
+    background-color: rgb(209, 225, 239);
+}

@@ -1,0 +1,75 @@
+.lecturer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .item-input {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .first-input label {
+    margin-bottom: 5px;
+    font-size: 14px;
+    margin-right: 10px;
+  }
+  
+  .first-input input {
+    width: 150px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: black;
+  }
+  
+  .new-item-button button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .new-item-button button:hover {
+    background-color: #218838;
+  }
+.back-button{
+  margin-left: auto;
+  margin-right: 20px;
+}
+  
+.back-button button {
+
+  padding: 10px 20px;
+  background-color: #17a2b8;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button button:hover {
+  background-color: #138496;
+}
+
+.back-button a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.back-button a:hover {
+  text-decoration: underline;
+}

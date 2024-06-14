@@ -1,0 +1,17 @@
+what to do with the status in passwords table?
+to make checking cookie only from 'localhost/8080/app/..." or make from the basic "localhost/8080/..".
+how to make checking the cookie for any request? how to use it in any request?
+(put attention for axios.credientials..)
+
+add field in user update after success update (registerForm) status. that will be 1 after complete register form. \
+check this status after success login to move for registerForm
+
+
+change server .send() to send onlt json. and all fetch response.data to json instead of .text().. (like i returnes message: ..)
+
+add a button for lecturer in detailed lesson to see al list of all students did the hw. (according to completed of a task);
+
+maybe instead of completed i should make a field with url give student to upload its answers file?
+
+1. style the navbar and home like i styled in previous project.
+2. make details page.
