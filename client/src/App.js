@@ -10,6 +10,7 @@ import LecturerCourses from './pages/lecturer/courses/lecturerCourses';
 import LecturerLessons from './pages/lecturer/lessons/lecturerLessons';
 import LessonDetails from './pages/lecturer/lessons/detailedLesson';
 import CourseDetails from './pages/lecturer/courses/detailedCourse';
+import DetailsHw from './pages/lecturer/lessons/homeworks/detailedHomework';
 
 function App() {
   return (
@@ -27,7 +28,10 @@ function App() {
                 <Route index element = {<LecturerCourses/>}/>
                 <Route path=":courseId/lessons" >
                     <Route index element = {<LecturerLessons/>}/>
-                    <Route path = ":lessonId" element = {<LessonDetails/>}/>
+                    <Route path = ":lessonId">
+                      <Route index element = {<LessonDetails/>}/>
+                      <Route path = "homework/:homeworkId" element= {<DetailsHw/>}/>
+                    </Route> 
                 </Route>
                 <Route path=":courseId/students" >
                     <Route index element = {<CourseDetails/>}/>

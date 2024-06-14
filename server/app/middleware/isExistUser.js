@@ -1,6 +1,6 @@
 import User from "../DL/user.dl.js";
 
-//check the user already exist in the system by its tz
+//check the user already exist in the system by its tz (username)
 const isExistUserValidation = (req, res, next) => {
     const username = req.body.user_id
     if(!username){
