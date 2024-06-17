@@ -5,9 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import 'rsuite/dist/rsuite.min.css';
 import { toaster, Notification } from 'rsuite';
 import showErrorMessage from '../helpers/alertMessage';
+import Globals from '../Globals';
 
 function RegisterForm() {
-
+    const port = Globals.PORT_SERVER;
     const navigate = useNavigate();
   //authentication of user
    const setAuth = useSetAuth();
@@ -26,7 +27,7 @@ function RegisterForm() {
 
   //save the detailed user in the server
   async function saveUserServer(){  
-      const response = await fetch(`http://localhost:8080/users/${user.id}`, {method: 'PUT',  headers: {
+      const response = await fetch(`http://localhost:${port}/users/${user.id}`, {method: 'PUT',  headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }, body: JSON.stringify(user)});

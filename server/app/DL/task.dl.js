@@ -7,6 +7,8 @@ class Task {
       this.student_id = task.student_id;
       this.hw_id = task.hw_id;
       this.completed = task.completed;
+      this.file_url = task.file_url;
+      this.grade = task.grade;
     }
   }
 }
@@ -85,8 +87,8 @@ Task.getAll = (page, limit, hw_id, student_id, result) => {
 //update a tasks found by its id
 Task.updateById = (id, task, result) => {
   sql.query(
-    "UPDATE tasks SET student_id=?, hw_id=?, completed=?  WHERE id = ?",
-    [  task.student_id, task.hw_id, task.completed, id],
+    "UPDATE tasks SET student_id=?, hw_id=?, completed=?, file_url=?, grade=?  WHERE id = ?",
+    [  task.student_id, task.hw_id, task.completed, task.file_url, task.grade, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

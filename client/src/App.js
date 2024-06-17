@@ -11,6 +11,7 @@ import LecturerLessons from './pages/lecturer/lessons/lecturerLessons';
 import LessonDetails from './pages/lecturer/lessons/detailedLesson';
 import CourseDetails from './pages/lecturer/courses/detailedCourse';
 import DetailsHw from './pages/lecturer/lessons/homeworks/detailedHomework';
+import DetailedUser from './pages/UserDetails/DetailedUser';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
             <Route path = '/login' element = {<Login/>}/>
             <Route path = '/lecturer' element = {<LecturerLayout/>}>
               <Route index />
+              <Route path = 'details' element = {<DetailedUser/>}/>
               <Route path = "courses" >
                 <Route index element = {<LecturerCourses/>}/>
                 <Route path=":courseId/lessons" >

@@ -16,6 +16,8 @@ taskCrud.create = (req, res) => {
   student_id : req.body.student_id,
   hw_id : req.body.hw_id,
   completed : req.body.completed,
+  file_url : req.body.file_url ?? null,
+  grade: req.body.grade ?? null
   });
 
   // Save task in the database using the DL layer, then return the response object with status code and data the error is a data

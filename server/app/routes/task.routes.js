@@ -1,5 +1,7 @@
 import tasks from '../BL/task.Bl.js'
 import express from 'express';
+import { EditTaskValidation } from '../middleware/EditTaskValidation.js';
+import { verifyUser } from '../middleware/verifyUser.js';
 
 const taskRoute = app => {
 
@@ -15,7 +17,7 @@ const taskRoute = app => {
   router.get("/:id", tasks.findOne);
 
   // Update a user with id
-  router.put("/:id", tasks.update);
+  router.put("/:id", verifyUser, EditTaskValidation, tasks.update);
 
   // Delete a user with id
   router.delete("/:id", tasks.delete);
