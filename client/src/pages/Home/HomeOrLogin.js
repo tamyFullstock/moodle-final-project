@@ -48,22 +48,11 @@ function HomeOrLogin() {
       });
   }, [port, setAuth]);
 
-  // Logout the user
-  const handleLogout = () => {
-    setAuth(false);
-    axios.get(`http://localhost:${port}/logout`)
-      .then(() => {
-        localStorage.removeItem("user"); // Remove user data from local storage on logout
-        window.location.reload();
-      })
-      .catch(err => console.log(err));
-  };
-
   return (
     <div className='containerHome'>
       {
         auth ?
-          <HomeAuth onLogout = {handleLogout} user = {user}/>
+          <HomeAuth user = {user}/>
           :
           <HomeUnauth/>
       }

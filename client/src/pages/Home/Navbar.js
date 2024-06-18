@@ -1,12 +1,34 @@
 // src/components/Navbar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios'
 import '../../style/home/navbar.css'
-import logo from '../../assets/logo.png'
+import logo from '../../assets/logo.png';
+import {useAuth, useSetAuth} from '../../helpers/ThemeProvider.js'
+import Globals from '../../Globals';
 
 //if user authorized: show 3 buttons: details, courses, logout
 //unauthorized user: only login button
-  function Navbar({ isAuthenticated, onLogout }) {
+  function Navbar({ isAuthenticated}) {
+    
+    const port = Globals.PORT_SERVER;
+    axios.defaults.withCredentials = true;  // Make it possible to use cookies
+
+    // The user unauthorized by default. Meaning did not login
+    // Is the user authorized
+    const setAuth = useSetAuth();
+    const auth = useAuth();
+
+    // Logout the user
+    const handleLogout = () => {
+      setAuth(false);
+      axios.get(`http://localhost:${port}/logout`)
+        .then(() => {
+          localStorage.removeItem("user"); // Remove user data from local storage on logout
+          window.location.reload();
+        })
+        .catch(err => console.log(err));
+    };
 
     return (
       <header>
@@ -17,7 +39,7 @@ import logo from '../../assets/logo.png'
               <>
                 <Link to="/lecturer/details">My Details</Link>
                 <Link to="/lecturer/courses">My Courses</Link>
-                <Link to = "./" onClick={onLogout}>Logout</Link>
+                <Link to = "./" onClick={handleLogout}>Logout</Link>
               </>
               ) : (
                 <Link to="/login">Login</Link>

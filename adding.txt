@@ -14,5 +14,5 @@ make the navabar to be for some routes i want in app.js
 
 make the app for the student.
 
-
+organize the detailedHw.js to components instead of too long file. (graph may be a component, completionRate can be calculated there..)
 
