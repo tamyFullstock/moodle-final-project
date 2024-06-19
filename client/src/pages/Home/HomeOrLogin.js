@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Globals from '../../Globals.js';
 import { useAuth, useSetAuth } from '../../helpers/ThemeProvider.js';
@@ -20,7 +20,7 @@ import '../../style/home/HomeOrLogin.css'
 function HomeOrLogin() {
   const port = Globals.PORT_SERVER;
   axios.defaults.withCredentials = true;  // Make it possible to use cookies
-
+  const navigate = useNavigate();
   // The user unauthorized by default. Meaning did not login
   // Is the user authorized
   const setAuth = useSetAuth();
@@ -37,6 +37,10 @@ function HomeOrLogin() {
           setUser(userData); // Set user data in state
           localStorage.setItem("user", JSON.stringify(userData)); // Store user data in local storage
           setAuth(true);
+          //if not all required user fields completed:
+          if(userData.status!=1){
+            setAuth(false);
+          }
         } else {
           setAuth(false);
         }

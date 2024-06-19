@@ -46,8 +46,8 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(res.data))  //save the user returned in local storage
         toast.success("Success login!", {position: "top-center"});
         setAuth(true);
-        //if not all user details completed (user does not have email: he did not pass registerForm)
-        if(res.data.email == "" || !res.data.email){
+        //if not all user details completed:
+        if(res.data.status!=1){
           setTimeout(()=>{navigate("/registerForm")}, 3000);
         }
         else{setTimeout(()=>{navigate("/")}, 3000)};

@@ -4,6 +4,8 @@ import Globals from '../../../Globals.js';
 import '../../../style/pages/lecturer/detailedCard.css';
 import NewHwForm from './homeworks/newHwsForm.js';
 
+//show lesson details with its homework. 
+//user can click hw to see the students hw states
 function LessonDetails() {
   const { lessonId } = useParams(); // Extract lessonId from the URL
   const location = useLocation();

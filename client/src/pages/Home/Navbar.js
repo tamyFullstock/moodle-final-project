@@ -10,9 +10,10 @@ import Globals from '../../Globals';
 //if user authorized: show 3 buttons: details, courses, logout
 //unauthorized user: only login button
   function Navbar({ isAuthenticated}) {
-    
+
     const port = Globals.PORT_SERVER;
     axios.defaults.withCredentials = true;  // Make it possible to use cookies
+    const user = JSON.parse(localStorage.getItem('user'??{})); //get current user from ls
 
     // The user unauthorized by default. Meaning did not login
     // Is the user authorized
@@ -37,8 +38,9 @@ import Globals from '../../Globals';
             <nav>
               {isAuthenticated ? (
               <>
-                <Link to="/lecturer/details">My Details</Link>
-                <Link to="/lecturer/courses">My Courses</Link>
+                <Link to={`/`}>Home</Link>
+                <Link to={`/lecturer/${user.id}/details`}>My Details</Link>
+                <Link to={`/lecturer/${user.id}/courses`}>My Courses</Link>
                 <Link to = "./" onClick={handleLogout}>Logout</Link>
               </>
               ) : (

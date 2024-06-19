@@ -1,10 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import Navbar from '../Home/Navbar'
 
 function LecturerLayout() {
   return (
     <div>
-        <Outlet />
+      <Navbar isAuthenticated={true}/>
+      <Outlet />
     </div>
   )
 }

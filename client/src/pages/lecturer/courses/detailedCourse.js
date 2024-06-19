@@ -4,6 +4,7 @@ import Globals from '../../../Globals.js';
 import '../../../style/pages/lecturer/detailedCard.css'
 import NewStudentForm from './components/newCoursePForm.js';
 
+//show the course details and its students
 function CourseDetails() {
   const user = JSON.parse(localStorage.getItem('user') ?? '{}'); //get current user from ls
   const { courseId } = useParams(); // Extract courseId from the URL
@@ -105,7 +106,7 @@ function CourseDetails() {
                     ))}
                 </ul>
                 <button className="add-item-button" onClick = {()=>{setShowNewStudentForm(true)}}>Add Student</button>
-                <Link to={`../?${search}`}>
+                <Link to={`/lecturer/${user.id}/courses?${search}`}>
                     <button className="back-button1">Back to Courses</button>
                 </Link>
             </div>}

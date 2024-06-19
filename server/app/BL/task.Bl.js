@@ -126,5 +126,9 @@ taskCrud.deleteAll = (req, res) => {
   });
 };
 
+taskCrud.upload = (req, res) =>{
+  
+}
+
 
 export default taskCrud;

@@ -4,6 +4,7 @@ import { useSearchParams, NavLink, useLocation } from 'react-router-dom';
 import '../../../../style/pages/lecturer/courses/coursesHeader.css';
 
 function LessonsHeader({ setShowNewLessonForm }) {
+  const user = JSON.parse(localStorage.getItem('user'??{})); //get current user from ls
   const location = useLocation();
   const search = location.state?.search || ""; //use it to maintain params between pages
   const [year, setYear] = useState(''); //year to filter by the lessons
@@ -34,7 +35,7 @@ function LessonsHeader({ setShowNewLessonForm }) {
       </div>
       <div className="back-button">
         <button><NavLink 
-                    to= {`../?${search}`}
+                    to= {`/lecturer/${user.id}/courses?${search}`}
                 >
                     back to all courses
           </NavLink></button>

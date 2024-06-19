@@ -1,4 +1,5 @@
 import Hw from "../DL/hw.dl.js";
+import multer from 'multer'
 
 const hwCrud = {};
 
@@ -104,5 +105,9 @@ hwCrud.deleteAll = (req, res) => {
     else res.send({ message: `All homeworks were deleted successfully!` });
   });
 };
+
+hwCrud.UploadFile = (req, res) =>{
+
+}
 
 export default hwCrud;

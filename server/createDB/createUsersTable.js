@@ -10,7 +10,8 @@ const users =[
       "email": "Shrarub@april.biz",
       "address": "Rishon Lezzion Rotchild 67",
       "phone": 547865011,
-      "type": "lecturer"
+      "type": "lecturer",
+      "status": 1
   },
   {
     "id": 2,
@@ -20,7 +21,8 @@ const users =[
     "email": "Mukimuki@april.biz",
     "address": "Tel Aviv Jhonson 3",
     "phone": 549776453,
-    "type": "student"
+    "type": "student",
+    "status": 1
   },
   {
   "id": 3,
@@ -30,7 +32,8 @@ const users =[
   "email": "Bretaroo@april.biz",
   "address": "Jerusalem David 98",
   "phone": 525561986,
-  "type": "student"
+  "type": "student",
+  "status": 1
   }
 ];
 
@@ -39,14 +42,23 @@ const createUsersTable = function(){
     if (err) throw err;
     console.log("Connected!");
     //create a tabkle "user"
-    var sql = "CREATE TABLE IF NOT EXISTS users(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(255), last_name VARCHAR(255), tz INT UNIQUE, email VARCHAR(255), address VARCHAR(255), phone INT(30), type VARCHAR(255))";
+    var sql = `CREATE TABLE IF NOT EXISTS users
+    (id INT PRIMARY KEY AUTO_INCREMENT,
+     first_name VARCHAR(255), 
+     last_name VARCHAR(255),
+     tz INT UNIQUE,
+     email VARCHAR(255), 
+     address VARCHAR(255), 
+     phone INT(30), 
+     type VARCHAR(255), 
+     status BOOLEAN)`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log("Users table created");
     });
     //insert users to the table
     for (let i = 0; i< users.length; i++){
-      sql = `INSERT INTO users(id, first_name, last_name, tz, email, address, phone, type) VALUES('${users[i].id}','${users[i].first_name}','${users[i].last_name}','${users[i].tz}','${users[i].email}','${users[i].address}','${users[i].phone}','${users[i].type}')`;
+      sql = `INSERT INTO users(id, first_name, last_name, tz, email, address, phone, type, status) VALUES('${users[i].id}','${users[i].first_name}','${users[i].last_name}','${users[i].tz}','${users[i].email}','${users[i].address}','${users[i].phone}','${users[i].type}','${users[i].status}')`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(`${i} record inserted with id: ${result.insertId}`);

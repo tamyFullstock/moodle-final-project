@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import jwt from 'jsonwebtoken';
 import fs from 'fs';
+import multer from 'multer'
 
 import userRoutes from './app/routes/user.routes.js';
 import courseRoute from './app/routes/course.routes.js';

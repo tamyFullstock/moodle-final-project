@@ -3,16 +3,14 @@ to make checking cookie only from 'localhost/8080/app/..." or make from the basi
 how to make checking the cookie for any request? how to use it in any request?
 (put attention for axios.credientials..)
 
-add field in user update after success update (registerForm) status. that will be 1 after complete register form. \
-check this status after success login to move for registerForm
-
-
 change server .send() to send onlt json. and all fetch response.data to json instead of .text().. (like i returnes message: ..)
 
 add a button for student to see pictures from today.
-make the navabar to be for some routes i want in app.js
 
 make the app for the student.
 
 organize the detailedHw.js to components instead of too long file. (graph may be a component, completionRate can be calculated there..)
 
+improve sql queries in server to join instead of 2 queries..
+
+upload files

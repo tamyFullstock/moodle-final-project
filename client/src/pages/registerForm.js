@@ -30,12 +30,12 @@ function RegisterForm() {
       const response = await fetch(`http://localhost:${port}/users/${user.id}`, {method: 'PUT',  headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
-      }, body: JSON.stringify(user)});
+      }, body: JSON.stringify({...user, status:1})});
       if (!response.ok){
         //if user datails are not valid
         if (response.status === 400) {
-            const data = await response.text();
-            throw new Error(data);
+            const data = await response.json();
+            throw new Error(data.message);
         }
         throw new Error("error while trying signing user, please try again");
       }
