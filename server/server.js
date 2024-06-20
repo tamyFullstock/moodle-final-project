@@ -9,7 +9,7 @@ import userRoutes from './app/routes/user.routes.js';
 import courseRoute from './app/routes/course.routes.js';
 import photoRoute from './app/routes/photo.routes.js';
 import lessonRoute from './app/routes/lesson.routes.js';
-import hwRoute from './app/routes/homework/hw.routes.js';
+import hwRoute from './app/routes/hw.routes.js';
 import taskRoute from './app/routes/task.routes.js';
 import initRoute from './app/routes/initialization.route.js';
 import cookieParser from 'cookie-parser';

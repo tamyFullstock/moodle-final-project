@@ -1,71 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import Globals from '../../../../Globals.js';
-import {useParams } from 'react-router-dom';
-import '../../../../style/pages/lecturer/courses/newCourseForm.css'
+import { useParams } from 'react-router-dom';
+import '../../../../style/pages/lecturer/courses/newCourseForm.css';
 import showErrorMessage from '../../../../helpers/alertMessage.js';
 
-//update hw form 
-function UpdateHwForm({ onClose, hwToUpdate, setHomework}) {
-  const {homeworkId} = useParams();
-  //values of new hw
-  const [fileName, setFileName] = useState('');
+function UpdateHwForm({ onClose, hwToUpdate, setHomework }) {
+  const { homeworkId } = useParams();
+  const { lessonId } = useParams();
   const [description, setDescription] = useState('');
-  const { lessonId } = useParams(); // Extract lessonId of all lessons from the URL
+  const port = Globals.PORT_SERVER;
+  const [file, setFile] = useState(null);
 
-  const port = Globals.PORT_SERVER; //prt of server
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
-  //make a new hw from the fileds. using put http request
   const handleUpdateHw = async () => {
-    const newHw = {
-      lesson_id: parseInt(lessonId),
-      file_name: fileName,
-      description: description
-    };
+    const formData = new FormData();
+    formData.append('hwFile', file);
+    formData.append('description', description);
+    formData.append('lesson_id', lessonId);
 
     try {
       const response = await fetch(`http://localhost:${port}/homeworks/${homeworkId}`, {
         method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newHw),
+        body: formData,
       });
 
       if (!response.ok) {
-        if (response.status === 400) { //not valid user fields
-          const data = await response.text();
-          throw new Error(data);
-        }
-        const data = await response.json();
-        console.log(data.message)
-        throw new Error(`error while trying updating homework with ID = ${homeworkId}`);
+        const data = await response.text();
+        throw new Error(data);
       }
-      //hw has been added successfully:
-      const newHwData = await response.json(); //post a hw return the new course with its new id
-      setHomework(newHwData); //set the homework in the parent page to the new hw
-      onClose(); //close the component
+      const newHwData = await response.json();
+      setHomework(newHwData);
+      onClose();
     } catch (error) {
       console.error(error);
-      showErrorMessage(error.message)
+      showErrorMessage(error.message);
     }
-};
+  };
 
-//if we update a hw, initialize the fields to the previous hw values 
-useEffect(()=>{
-      setFileName(hwToUpdate.file_name);
-      setDescription(hwToUpdate.description)
- }, [homeworkId])
+  useEffect(() => {
+    setDescription(hwToUpdate.description);
+  }, [hwToUpdate]);
 
   return (
     <div className="new-item-form">
       <h2>Update Hw</h2>
-      <label htmlFor="file-url">File-url:</label>
+      <label htmlFor="hwFile">File:</label>
       <input
-        type="text"
-        id="fileName"
-        value={fileName}
-        onChange={(e) => setFileName(e.target.value)}
+        type="file"
+        id="hwFile"
+        onChange={handleFileChange}
       />
       <label htmlFor="description">Description:</label>
       <input
@@ -75,8 +61,7 @@ useEffect(()=>{
         onChange={(e) => setDescription(e.target.value)}
       />
       <div className="buttons">
-        <button onClick={()=>{
-          handleUpdateHw()}}>Update Homework</button>
+        <button onClick={handleUpdateHw}>Update Homework</button>
         <button onClick={onClose}>Close</button>
       </div>
     </div>

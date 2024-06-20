@@ -1,5 +1,12 @@
 import Hw from "../DL/hw.dl.js";
-import multer from 'multer'
+import multer from 'multer';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Use these two lines to get the equivalent of __dirname- get the file url, convert it to directory path
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const hwCrud = {};
 
@@ -10,10 +17,9 @@ hwCrud.create = (req, res) => {
       message: "Content can not be empty!"
     });
   }
-
   const homework = new Hw({
     lesson_id: req.body.lesson_id,
-    file_name: req.body.file_name,
+    file_name : req.file?.filename ?? null,
     description: req.body.description
   });
 
@@ -63,7 +69,7 @@ hwCrud.update = (req, res) => {
     });
   }
 
-  Hw.updateById(req.params.id, new Hw(req.body), (err, data) => {
+  Hw.findById(req.params.id, (err, oldData) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -71,16 +77,48 @@ hwCrud.update = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: "Error updating homework with id " + req.params.id
+          message: "Error retrieving homework with id " + req.params.id
         });
       }
-    } else res.send(data);
+    } else {
+      let newFileName = oldData.file_name;
+      if (req.file) {
+        // Delete the old file
+        if (oldData.file_name) {
+          const filePath = path.join(__dirname, '../../public/hw/files', oldData.file_name);
+          fs.unlink(filePath, (err) => {
+            if (err) console.error("Failed to delete old file:", err);
+          });
+        }
+        newFileName = req.file.filename;
+      }
+
+      const homework = new Hw({
+        lesson_id: req.body.lesson_id,
+        file_name: newFileName,
+        description: req.body.description
+      });
+
+      Hw.updateById(req.params.id, homework, (err, data) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found homework with id ${req.params.id}.`
+            });
+          } else {
+            res.status(500).send({
+              message: "Error updating homework with id " + req.params.id
+            });
+          }
+        } else res.send(data);
+      });
+    }
   });
 };
 
 // Delete a homework with the specified id in the request
 hwCrud.delete = (req, res) => {
-  Hw.remove(req.params.id, (err, data) => {
+  Hw.findById(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -88,15 +126,55 @@ hwCrud.delete = (req, res) => {
         });
       } else {
         res.status(500).send({
-          message: "Could not delete homework with id " + req.params.id
+          message: "Error retrieving homework with id " + req.params.id
         });
       }
-    } else res.send({ message: `Homework was deleted successfully!` });
+    } else {
+      // Delete the file
+      if (data.file_name) {
+        const filePath = path.join(__dirname, '../../public/hw/files', data.file_name);
+        fs.unlink(filePath, (err) => {
+          if (err) console.error("Failed to delete file:", err);
+        });
+      }
+
+      Hw.remove(req.params.id, (err, result) => {
+        if (err) {
+          if (err.kind === "not_found") {
+            res.status(404).send({
+              message: `Not found homework with id ${req.params.id}.`
+            });
+          } else {
+            res.status(500).send({
+              message: "Could not delete homework with id " + req.params.id
+            });
+          }
+        } else res.send({ message: `Homework was deleted successfully!` });
+      });
+    }
   });
 };
 
 // Delete all homeworks from the database.
 hwCrud.deleteAll = (req, res) => {
+  // Delete all files from the hw/files directory
+  const directoryPath = path.join(__dirname, '../../public/hw/files');
+  fs.readdir(directoryPath, (err, files) => {
+    if (err) {
+      console.error("Could not list the directory.", err);
+      res.status(500).send({
+        message: "Error listing files in directory."
+      });
+    } else {
+      files.forEach((file, index) => {
+        const filePath = path.join(directoryPath, file);
+        fs.unlink(filePath, (err) => {
+          if (err) console.error("Failed to delete file:", err);
+        });
+      });
+    }
+  });
+
   Hw.removeAll((err, data) => {
     if (err)
       res.status(500).send({
@@ -105,5 +183,6 @@ hwCrud.deleteAll = (req, res) => {
     else res.send({ message: `All homeworks were deleted successfully!` });
   });
 };
+
 
 export default hwCrud;

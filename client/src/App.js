@@ -12,7 +12,6 @@ import LessonDetails from './pages/lecturer/lessons/detailedLesson';
 import CourseDetails from './pages/lecturer/courses/detailedCourse';
 import DetailsHw from './pages/lecturer/lessons/homeworks/detailedHomework';
 import DetailedUser from './pages/UserDetails/DetailedUser';
-import UploadFile from './pages/lecturer/lessons/homeworks/uploadFile';
 
 function App() {
   return (
@@ -21,7 +20,6 @@ function App() {
         <Routes>
           <Route path="/">
             <Route index element = {<HomeOrLogin/>}/>
-            <Route path = "/:homeworkId/upload" element={<UploadFile/>}/>
             <Route path = '/register' element = {<Register/>}/>
             <Route path = '/registerForm' element = {<RegisterForm/>}/>
             <Route path = '/login' element = {<Login/>}/>

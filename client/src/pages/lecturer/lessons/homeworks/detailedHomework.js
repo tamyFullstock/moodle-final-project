@@ -28,10 +28,6 @@ function DetailsHw() {
         }
         const hw = await response.json();
         setHomework(hw);
-        if(hw.file_name){ // Construct the file URL for the PDF file
-          setHwFileUrl(`http://localhost:${port}/hw/files/${hw.file_name}`);
-        }
-    
       } catch (err) {
         console.log(err);
       } finally {
@@ -40,6 +36,12 @@ function DetailsHw() {
     }
     getHomeworkDetails();
   }, [homeworkId, port]);
+
+  useEffect(()=>{
+    if(homework && homework.file_name){ // Construct the file URL for the PDF file
+      setHwFileUrl(`http://localhost:${port}/hw/files/${homework.file_name}`);
+    }
+  },[homework, homeworkId])
 
   // Get a list with all the students (and their details) in the course have this hw (task associated to it)
   useEffect(() => {
@@ -105,7 +107,7 @@ function DetailsHw() {
       });
 
       if (!response.ok) {
-        console.log(response, "errror")
+        console.log(response, "error")
         if(response.status == 403){
           throw new Error("You don't have permission to edit task's grade");
         }
@@ -155,9 +157,9 @@ function DetailsHw() {
               <div className="completion-rate-pContainer">
                   <HwCompletionGraph StudentsTasksList = {students}/>
               </div>
-              {homework.file_name && (
+              {(homework.file_name && hwFileUrl) && (
                 <a href={hwFileUrl} download target="_blank" rel="noopener noreferrer">
-                  <button className="pdf-button">Open PDF file</button>
+                  <button className="pdf-button">Hw file</button>
                 </a>
               )}
               <button className="delete-button" onClick={deleteHw}>Delete Homework</button>

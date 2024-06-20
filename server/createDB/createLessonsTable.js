@@ -10,7 +10,8 @@ const lessons=[
         "month": 12, 
         "day": 3,
         "hour": 13,
-        "course_id": 1
+        "course_id": 1,
+        "video_name": null
     },
     {
         "id": 2,
@@ -19,7 +20,8 @@ const lessons=[
         "month": 11, 
         "day": 5,
         "hour": 9,
-        "course_id": 1
+        "course_id": 1,
+        "video_name": null
   },
   {
       "id": 3,
@@ -28,7 +30,8 @@ const lessons=[
       "month": 12, 
       "day": 3,
       "hour": 11,
-      "course_id": 2
+      "course_id": 2,
+      "video_name": null
   }
    
 ];
@@ -47,6 +50,7 @@ const createLessonsTable = function(){
       day INT,
       hour INT,
       course_id INT,
+      video_name VARCHAR(255),
       CONSTRAINT CIDC FOREIGN KEY (course_id) REFERENCES courses(id),
       CONSTRAINT DC CHECK (day <= 31 AND day >= 1 AND hour >= 0 AND hour <= 24 AND month >= 1 AND month <= 12 AND year >= 0)
       )`;
@@ -56,7 +60,7 @@ const createLessonsTable = function(){
     });
     //insert data into lessons table
     for (let i = 0; i< lessons.length; i++){
-      var sql = `INSERT INTO lessons (id, title, year, month, day, hour, course_id) VALUES ('${lessons[i].id}','${lessons[i].title}','${lessons[i].year}','${lessons[i].month}','${lessons[i].day}','${lessons[i].hour}','${lessons[i].course_id}')`;
+      var sql = `INSERT INTO lessons (id, title, year, month, day, hour, course_id, video_name) VALUES ('${lessons[i].id}','${lessons[i].title}','${lessons[i].year}','${lessons[i].month}','${lessons[i].day}','${lessons[i].hour}','${lessons[i].course_id}', '${lessons[i].video_name}')`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(`${i} record inserted with id: ${result.insertId}`);
