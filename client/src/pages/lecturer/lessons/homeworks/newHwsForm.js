@@ -7,7 +7,7 @@ import showErrorMessage from '../../../../helpers/alertMessage.js';
 //add/update hw form 
 function NewHwForm({ onClose, onAddHw}) {
   //values of new hw
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileName, setFileName] = useState('');
   const [description, setDescription] = useState('');
   const { lessonId } = useParams(); // Extract lessonId of all lessons from the URL
   const port = Globals.PORT_SERVER; //prt of server
@@ -16,7 +16,7 @@ function NewHwForm({ onClose, onAddHw}) {
   const handleAddHw = async () => {
     const newHw = {
       lesson_id: parseInt(lessonId),
-      file_url: fileUrl,
+      file_name: fileName,
       description: description
     };
 
@@ -54,12 +54,12 @@ function NewHwForm({ onClose, onAddHw}) {
     <div className="new-item-form">
       {/*if type is update: Update hw, id adding type: add new hw */}
       <h2>Add New Hw</h2>
-      <label htmlFor="file-url">File-url:</label>
+      <label htmlFor="fileName">File-name:</label>
       <input
         type="text"
-        id="fileUrl"
-        value={fileUrl}
-        onChange={(e) => setFileUrl(e.target.value)}
+        id="fileName"
+        value={fileName}
+        onChange={(e) => setFileName(e.target.value)}
       />
       <label htmlFor="description">Description:</label>
       <input

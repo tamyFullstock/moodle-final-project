@@ -3,9 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Globals from '../../../../Globals.js';
 import '../../../../style/pages/lecturer/detailsHw.css';
 import UpdateHwForm from './updateHwsForm.js';
-import { Pie } from 'react-chartjs-2';
-import 'chart.js/auto';
 import showErrorMessage from '../../../../helpers/alertMessage.js';
+import HwCompletionGraph from './components/HwCompletionGraph.js';
+import SingleStudentsTasks from './components/SingleStudentTask.js';
 
 function DetailsHw() {
   const { homeworkId } = useParams(); // Extract homework ID from the URL
@@ -15,10 +15,9 @@ function DetailsHw() {
   const [isLoading, setIsLoading] = useState(true); // Still not get the data yet
   const [showUpdateHwForm, setShowUpdateHwForm] = useState(false); // State to control form visibility (make a new hw)
   const [students, setStudents] = useState([]); // List of all students
-  const [completedStudents, setCompletedStudents] = useState([]); // List of students who completed the homework
-  const [completionRate, setCompletionRate] = useState(0); // Completion rate for the homework
   const [tasks, setTasks] = useState([]); // List of all tasks of hw
   const [editingGrade, setEditingGrade] = useState(null); // Track the student being edited. the value is the task now been updated
+  const [hwFileUrl, setHwFileUrl] = useState('')  //full url of the file of hw
 
   useEffect(() => {
     async function getHomeworkDetails() {
@@ -29,6 +28,10 @@ function DetailsHw() {
         }
         const hw = await response.json();
         setHomework(hw);
+        if(hw.file_name){ // Construct the file URL for the PDF file
+          setHwFileUrl(`http://localhost:${port}/hw/files/${hw.file_name}`);
+        }
+    
       } catch (err) {
         console.log(err);
       } finally {
@@ -58,27 +61,18 @@ function DetailsHw() {
             student_name: `${data.first_name} ${data.last_name}`,
             username: data.tz,
             completed: t.completed,
-            file_url: t.file_url,
+            file_name: t.file_name,
             grade: t.grade
           }))
         );
         const studentsDetailsList = await Promise.all(studentDetailsPromises); // List with all students have this task (student in the course) with their details
         setStudents(studentsDetailsList);
-        const completedStudentsList = studentsDetailsList.filter(s => s.completed === 1);  // List of all students who completed the hw
-        setCompletedStudents(completedStudentsList);
-        const completionRate = (completedStudentsList.length / studentsDetailsList.length) * 100; // Percentage of students who did the hw
-        setCompletionRate(completionRate.toFixed(2));
       } catch (err) {
         console.log(err);
       }
     }
     getStudents();
   }, [homeworkId, port]);
-
-  // Update the completedStudents list who did the homework if the list of students get changed
-  useEffect(() => {
-    setCompletedStudents(students.filter(s => s.completed === 1));
-  }, [students]);
 
   // Delete the hw
   async function deleteHw() {
@@ -92,11 +86,6 @@ function DetailsHw() {
       console.log(err);
     }
   }
-
-  // Function to open the file URL
-  const openFile = (fileUrl) => {
-    window.open(fileUrl, '_blank');
-  };
 
   // Function to handle grade submission
   const handleGradeSubmit = async (taskId, newGrade) => {
@@ -116,10 +105,11 @@ function DetailsHw() {
       });
 
       if (!response.ok) {
+        console.log(response, "errror")
         if(response.status == 403){
           throw new Error("You don't have permission to edit task's grade");
         }
-        throw new Error(`Error updating grade for task ID ${taskId}`);
+        throw new Error(`Error updating grade for task ID ${taskId} status: ${response.status}`);
       }
 
       const updatedTask = await response.json();
@@ -154,61 +144,22 @@ function DetailsHw() {
               <h4>Students' Homework</h4>
               <ul className="student-list">
                 {students.map(student => (
-                  <li key={student.id} className={student.completed === 1 ? 'completed' : 'not-completed'}>
-                    {student.student_name} {student.completed === 1 ? '✔️' : '❌'}
-                    {student.file_url && (
-                      <button className="file-button" onClick={() => openFile(student.file_url)}>Open File</button>
-                    )}
-                    {/*an input field for updating grade. show only for the task been upadted */}
-                    {editingGrade === student.taskId ? (
-                      <div className="grade-input-container">
-                        <input
-                          type="number"
-                          defaultValue={student.grade}
-                          onKeyDown={e => { //submit the grade
-                            if (e.key === 'Enter') {
-                              handleGradeSubmit(student.taskId, e.target.value);
-                            } else if (e.key === 'Escape') {
-                              setEditingGrade(null);
-                            }
-                          }}
-                          autoFocus
-                        />
-                        <button onClick={() => setEditingGrade(null)}>X</button> 
-                      </div>
-                    ) : (
-                      <button className="grade-button" onClick={() => setEditingGrade(student.taskId)}>Grade</button>
-                    )}
-                  </li>
+                  <SingleStudentsTasks key={student.id}
+                                       student={student} 
+                                       editingGrade={editingGrade} 
+                                       setEditingGrade={setEditingGrade}
+                                       handleGradeSubmit={handleGradeSubmit}
+                                      />
                 ))}
               </ul>
-              <div className="completion-rate-container">
-                <h4>Homework Completion Rate:</h4>
-                <div className="chart-container">
-                  <Pie
-                    data={{
-                      labels: ['Completed', 'Not Completed'],
-                      datasets: [{
-                        data: [completionRate, 100 - completionRate],
-                        backgroundColor: ['#4caf50', '#f44336'],
-                      }],
-                    }}
-                    options={{
-                      plugins: {
-                        legend: {
-                          display: true,
-                          position: 'bottom',
-                        },
-                      },
-                      maintainAspectRatio: false,
-                    }}
-                  />
-                </div>
-                <p>{completionRate}% of students have completed this homework</p>
+              <div className="completion-rate-pContainer">
+                  <HwCompletionGraph StudentsTasksList = {students}/>
               </div>
-              <a href={homework.file_url} download target="_blank">
-                <button className="pdf-button">Open PDF file</button>
-              </a>
+              {homework.file_name && (
+                <a href={hwFileUrl} download target="_blank" rel="noopener noreferrer">
+                  <button className="pdf-button">Open PDF file</button>
+                </a>
+              )}
               <button className="delete-button" onClick={deleteHw}>Delete Homework</button>
               <button className="update-button" onClick={() => setShowUpdateHwForm(true)}>Update Homework</button>
               <button className="back-button2" onClick={() => navigate(-1)}>Back</button>

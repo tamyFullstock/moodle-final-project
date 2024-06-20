@@ -8,7 +8,7 @@ const tasks=[
         "student_id": 2,
         "hw_id": 1,
         "completed": 0,
-        "file_url": null,
+        "file_name": null,
         "grade": 0
     },
     {
@@ -16,7 +16,7 @@ const tasks=[
       "student_id": 3,
       "hw_id": 1,
       "completed": 1,
-      "file_url": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+      "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
       "grade": 80
     },
     {
@@ -24,7 +24,7 @@ const tasks=[
       "student_id": 2,
       "hw_id": 2,
       "completed": 1,
-      "file_url": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+      "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
       "grade": 90
   },
   {
@@ -32,7 +32,7 @@ const tasks=[
     "student_id": 3,
     "hw_id": 2,
     "completed": 0,
-    "file_url": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+    "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
     "grade" : 68
   }
 ];
@@ -47,7 +47,7 @@ const createTasksTable = function(){
     ,student_id INT, 
     hw_id INT,
     completed BOOLEAN, 
-    file_url VARCHAR(255),
+    file_name VARCHAR(255),
     grade INT,
     CONSTRAINT grade_check CHECK (grade BETWEEN 0 AND 100),
     CONSTRAINT HWC FOREIGN KEY(hw_id) REFERENCES homeworks(id),
@@ -58,9 +58,9 @@ const createTasksTable = function(){
     });
     //insert data into tasks table
     for (let i = 0; i< tasks.length; i++){
-      var sql = `INSERT INTO tasks (id, student_id, hw_id, completed, file_url, grade) 
+      var sql = `INSERT INTO tasks (id, student_id, hw_id, completed, file_name, grade) 
                   VALUES 
-                ('${tasks[i].id}','${tasks[i].student_id}', '${tasks[i].hw_id}', '${tasks[i].completed}', '${tasks[i].file_url}', '${tasks[i].grade}')`;
+                ('${tasks[i].id}','${tasks[i].student_id}', '${tasks[i].hw_id}', '${tasks[i].completed}', '${tasks[i].file_name}', '${tasks[i].grade}')`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(`${i} record inserted with id: ${result.insertId}`);

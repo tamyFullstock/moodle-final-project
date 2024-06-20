@@ -13,7 +13,7 @@ hwCrud.create = (req, res) => {
 
   const homework = new Hw({
     lesson_id: req.body.lesson_id,
-    file_url: req.body.file_url,
+    file_name: req.body.file_name,
     description: req.body.description
   });
 
@@ -105,9 +105,5 @@ hwCrud.deleteAll = (req, res) => {
     else res.send({ message: `All homeworks were deleted successfully!` });
   });
 };
-
-hwCrud.UploadFile = (req, res) =>{
-
-}
 
 export default hwCrud;

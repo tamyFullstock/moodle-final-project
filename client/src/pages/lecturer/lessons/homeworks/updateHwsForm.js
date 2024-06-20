@@ -8,7 +8,7 @@ import showErrorMessage from '../../../../helpers/alertMessage.js';
 function UpdateHwForm({ onClose, hwToUpdate, setHomework}) {
   const {homeworkId} = useParams();
   //values of new hw
-  const [fileUrl, setFileUrl] = useState('');
+  const [fileName, setFileName] = useState('');
   const [description, setDescription] = useState('');
   const { lessonId } = useParams(); // Extract lessonId of all lessons from the URL
 
@@ -18,7 +18,7 @@ function UpdateHwForm({ onClose, hwToUpdate, setHomework}) {
   const handleUpdateHw = async () => {
     const newHw = {
       lesson_id: parseInt(lessonId),
-      file_url: fileUrl,
+      file_name: fileName,
       description: description
     };
 
@@ -53,7 +53,7 @@ function UpdateHwForm({ onClose, hwToUpdate, setHomework}) {
 
 //if we update a hw, initialize the fields to the previous hw values 
 useEffect(()=>{
-      setFileUrl(hwToUpdate.file_url);
+      setFileName(hwToUpdate.file_name);
       setDescription(hwToUpdate.description)
  }, [homeworkId])
 
@@ -63,9 +63,9 @@ useEffect(()=>{
       <label htmlFor="file-url">File-url:</label>
       <input
         type="text"
-        id="fileUrl"
-        value={fileUrl}
-        onChange={(e) => setFileUrl(e.target.value)}
+        id="fileName"
+        value={fileName}
+        onChange={(e) => setFileName(e.target.value)}
       />
       <label htmlFor="description">Description:</label>
       <input

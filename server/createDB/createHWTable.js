@@ -5,25 +5,25 @@ const homeworks=[
     {
         "id": 1,
         "lesson_id": 1,
-        "file_url": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+        "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
         "description": "the history of the mathematics"
     },
     {
       "id": 2,
       "lesson_id": 2,
-      "file_url": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+      "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
       "description": "science and high-tech"
     },
     {
       "id": 3,
       "lesson_id": 1,
-      "file_url": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+      "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
       "description": "lab 2 mathematicinas"
     },
     {
       "id": 4,
       "lesson_id": 1,
-      "file_url": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+      "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
       "description": "lab 1 egyption code"
     }
   ];
@@ -35,7 +35,7 @@ const createHWTable = function(){
     var sql = `CREATE TABLE IF NOT EXISTS homeworks 
     (id INT PRIMARY KEY AUTO_INCREMENT ,
     lesson_id INT ,
-    file_url VARCHAR(255),
+    file_name VARCHAR(255),
     description VARCHAR(255), 
     FOREIGN KEY(lesson_id) REFERENCES lessons(id))`;
     con.query(sql, function (err, result) {
@@ -44,9 +44,9 @@ const createHWTable = function(){
     });
     //insert hws to the table
     for (let i = 0; i< homeworks.length; i++){
-      var sql = `INSERT INTO homeworks (id, lesson_id, file_url, description)
+      var sql = `INSERT INTO homeworks (id, lesson_id, file_name, description)
                    VALUES 
-                 ('${homeworks[i].id}','${homeworks[i].lesson_id}','${homeworks[i].file_url}','${homeworks[i].description}')`;
+                 ('${homeworks[i].id}','${homeworks[i].lesson_id}','${homeworks[i].file_name}','${homeworks[i].description}')`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(`${i} record inserted with id: ${result.insertId}`);

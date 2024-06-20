@@ -5,7 +5,7 @@ class Hw {
   constructor(homework) {
     if (homework) {
       this.lesson_id = homework.lesson_id;
-      this.file_url = homework.file_url;
+      this.file_name = homework.file_name;
       this.description = homework.description;
     }
   }
@@ -95,8 +95,8 @@ Hw.getAll = (lesson_id, result) => {
 //update a homework found by its id
 Hw.updateById = (id, homework, result) => {
   sql.query(
-    "UPDATE homeworks SET lesson_id=?, file_url=?, description=?  WHERE id = ?",
-    [  homework.lesson_id, homework.file_url, homework.description, id],
+    "UPDATE homeworks SET lesson_id=?, file_name=?, description=?  WHERE id = ?",
+    [  homework.lesson_id, homework.file_name, homework.description, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

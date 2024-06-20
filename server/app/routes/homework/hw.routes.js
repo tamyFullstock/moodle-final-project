@@ -1,10 +1,11 @@
-import hws from '../BL/hw.Bl.js'
+import hws from '../../BL/hw.Bl.js'
 import express from 'express';
+import hwUploadFileRoute from './uploadF.route.js';
 
 const hwRoute = app => {
 
   const router = express.Router();
-
+  
   // Create a new user
   router.post("/", hws.create);
 
@@ -23,7 +24,11 @@ const hwRoute = app => {
   // Delete all users
   router.delete("/", hws.deleteAll);
 
+  // Use the file upload route
+  router.use(hwUploadFileRoute);
+
   app.use('/homeworks', router);
+  
 };
 
 export default hwRoute;

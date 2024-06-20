@@ -14,3 +14,5 @@ organize the detailedHw.js to components instead of too long file. (graph may be
 improve sql queries in server to join instead of 2 queries..
 
 upload files
+
+to open nodemon use npm start

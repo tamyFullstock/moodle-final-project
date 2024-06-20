@@ -16,7 +16,7 @@ taskCrud.create = (req, res) => {
   student_id : req.body.student_id,
   hw_id : req.body.hw_id,
   completed : req.body.completed,
-  file_url : req.body.file_url ?? null,
+  file_name : req.body.file_name ?? null,
   grade: req.body.grade ?? null
   });
 
