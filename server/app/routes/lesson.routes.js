@@ -1,15 +1,14 @@
 import lessons from '../BL/lesson.Bl.js'
 import express from 'express';
 import { chechLessonValidation } from '../middleware/lessonValidation.js';
-import FileUpload from '../BL/upload/fileUpload.js'
-import checkFileExtensionMp4 from '../middleware/checkValidMp4.js';
+import FileUpload from '../middleware/upload/fileUpload.js'
 
 const lessonRoute = app => {
 
   const router = express.Router();
 
   // Create a new user
-  router.post("/", chechLessonValidation, checkFileExtensionMp4, FileUpload('lesson/videos').single('lessonVideo'), lessons.create);
+  router.post("/",  FileUpload('lesson/videos', ['video/mp4'], 'lessonVideo'), chechLessonValidation, lessons.create);
 
   // Retrieve all users
   router.get("/", lessons.findAll);
@@ -18,7 +17,7 @@ const lessonRoute = app => {
   router.get("/:id", lessons.findOne);
 
   // Update a user with id
-  router.put("/:id", chechLessonValidation, checkFileExtensionMp4, FileUpload('lesson/videos').single('lessonVideo'), lessons.update);
+  router.put("/:id",  FileUpload('lesson/videos', ['video/mp4'], 'lessonVideo'),chechLessonValidation, lessons.update);
 
   // Delete a user with id
   router.delete("/:id", lessons.delete);

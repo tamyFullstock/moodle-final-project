@@ -1,13 +1,13 @@
 import hws from '../BL/hw.Bl.js'
 import express from 'express';
-import FileUpload from '../BL/upload/fileUpload.js'
+import FileUpload from '../middleware/upload/fileUpload.js'
 
 const hwRoute = app => {
 
   const router = express.Router();
   
   // Create a new user
-  router.post("/", FileUpload('hw/files').single('hwFile'), hws.create);
+  router.post("/", FileUpload('hw/files', null, 'hwFile'), hws.create);
 
   // Retrieve all users
   router.get("/", hws.findAll);
@@ -16,7 +16,7 @@ const hwRoute = app => {
   router.get("/:id", hws.findOne);
 
   // Update a user with id
-  router.put("/:id", FileUpload('hw/files').single('hwFile'), hws.update);
+  router.put("/:id", FileUpload('hw/files', null, 'hwFile'), hws.update);
 
   // Delete a user with id
   router.delete("/:id", hws.delete);

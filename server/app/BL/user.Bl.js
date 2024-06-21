@@ -20,7 +20,8 @@ userCrud.create = (req, res) => {
   address: req.body.address,
   phone: req.body.phone,
   type: req.body.type,
-  status: req.body.status
+  status: req.body.status,
+  photo: req.file?.filename ?? null
   });
 
   // Save user in the database using the DL layer, then return the response object with status code and data the error is a data

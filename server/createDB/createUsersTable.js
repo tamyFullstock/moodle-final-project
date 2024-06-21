@@ -11,6 +11,7 @@ const users =[
       "address": "Rishon Lezzion Rotchild 67",
       "phone": 547865011,
       "type": "lecturer",
+      "photo": null,
       "status": 1
   },
   {
@@ -22,6 +23,7 @@ const users =[
     "address": "Tel Aviv Jhonson 3",
     "phone": 549776453,
     "type": "student",
+    "photo": null,
     "status": 1
   },
   {
@@ -33,6 +35,7 @@ const users =[
   "address": "Jerusalem David 98",
   "phone": 525561986,
   "type": "student",
+  "photo": null,
   "status": 1
   }
 ];
@@ -51,6 +54,7 @@ const createUsersTable = function(){
      address VARCHAR(255), 
      phone INT(30), 
      type VARCHAR(255), 
+     photo VARCHAR(255),
      status BOOLEAN)`;
     con.query(sql, function (err, result) {
       if (err) throw err;
@@ -58,7 +62,7 @@ const createUsersTable = function(){
     });
     //insert users to the table
     for (let i = 0; i< users.length; i++){
-      sql = `INSERT INTO users(id, first_name, last_name, tz, email, address, phone, type, status) VALUES('${users[i].id}','${users[i].first_name}','${users[i].last_name}','${users[i].tz}','${users[i].email}','${users[i].address}','${users[i].phone}','${users[i].type}','${users[i].status}')`;
+      sql = `INSERT INTO users(id, first_name, last_name, tz, email, address, phone, type, photo, status) VALUES('${users[i].id}','${users[i].first_name}','${users[i].last_name}','${users[i].tz}','${users[i].email}','${users[i].address}','${users[i].phone}','${users[i].type}', '${users[i].photo}','${users[i].status}')`;
     con.query(sql, function (err, result) {
       if (err) throw err;
       console.log(`${i} record inserted with id: ${result.insertId}`);

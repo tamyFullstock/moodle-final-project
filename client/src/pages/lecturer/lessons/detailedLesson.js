@@ -1,32 +1,35 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import Globals from '../../../Globals.js';
 import '../../../style/pages/lecturer/detailedCard.css';
 import NewHwForm from './homeworks/newHwsForm.js';
 
-//show lesson details with its homework. 
-//user can click hw to see the students hw states
+// Component to show lesson details with its homework
 function LessonDetails() {
   const { lessonId } = useParams(); // Extract lessonId from the URL
   const location = useLocation();
   const search = location.state?.search || ""; // Use it to maintain params between pages
   const port = Globals.PORT_SERVER; // Port of the server
+
+  // State variables
   const [lessonDetails, setLessonDetails] = useState(null); // Details of the lesson
   const [homeworkList, setHomeworkList] = useState([]); // List of homework
   const [isLoading, setIsLoading] = useState(true); // Still not get the data yet
   const [showNewHwForm, setShowNewHwForm] = useState(false); // State to control form visibility (make a new hw)
 
   useEffect(() => {
+    // Function to fetch lesson details from server
     async function getLessonDetails() {
-      // Get the current lesson from server
       try {
+        // Fetch lesson details
         const response = await fetch(`http://localhost:${port}/lessons/${lessonId}`);
         if (!response.ok) {
           throw new Error(`Error getting details for lesson with ID ${lessonId}`);
         }
         const lesson = await response.json();
         setLessonDetails(lesson);
-        // Get all hws of current lesson
+
+        // Fetch homework details for the lesson
         const hwResponse = await fetch(`http://localhost:${port}/homeworks?lesson=${lessonId}`);
         if (!hwResponse.ok) {
           throw new Error(`Error getting homework for lesson with ID ${lessonId}`);
@@ -36,17 +39,17 @@ function LessonDetails() {
       } catch (err) {
         console.log(err);
       } finally {
-        setIsLoading(false);
+        setIsLoading(false); // Set loading to false after fetching data
       }
     }
+
     getLessonDetails();
   }, [lessonId, port]);
 
-   //add hw in the client side
-   const handleAddHw= (newHw) => {
-    setHomeworkList([...homeworkList, newHw])
+  // Function to handle adding a new homework
+  const handleAddHw = (newHw) => {
+    setHomeworkList([...homeworkList, newHw]);
   };
-
 
   return (
     <div className="item-details-first-container">
@@ -59,6 +62,18 @@ function LessonDetails() {
               <h2>{lessonDetails.title}</h2>
               <p><strong>Lesson ID:</strong> {lessonDetails.id}</p>
               <p><strong>Date:</strong> {new Date(lessonDetails.year, lessonDetails.month - 1, lessonDetails.day, lessonDetails.hour).toLocaleString()}</p>
+              
+              {/* Display video if video_name is not null */}
+              {lessonDetails.video_name && (
+                <div>
+                  <h3>Lesson Video</h3>
+                  <video width="600" controls>
+                    <source src={`http://localhost:${port}/lesson/videos/${lessonDetails.video_name}`} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
+              
               <h3>Homework</h3>
               <ul>
                 {homeworkList.map(hw => (
@@ -70,7 +85,7 @@ function LessonDetails() {
                   </li>
                 ))}
               </ul>
-              <button className="add-item-button" onClick={()=>{setShowNewHwForm(true)}}>Add Homework</button>
+              <button className="add-item-button" onClick={() => { setShowNewHwForm(true) }}>Add Homework</button>
               <Link to={`../?${search}`}>
                 <button className="back-button1">Back to Lessons</button>
               </Link>
