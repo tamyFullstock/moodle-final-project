@@ -39,7 +39,7 @@ import Globals from '../../Globals';
               {isAuthenticated ? (
               <>
                 <Link to={`/`}>Home</Link>
-                <Link to={`/lecturer/${user.id}/details`}>My Details</Link>
+                <Link to={`/lecturer/${user.id}/details?observer=self`}>My Details</Link>
                 <Link to={`/lecturer/${user.id}/courses`}>My Courses</Link>
                 <Link to = "./" onClick={handleLogout}>Logout</Link>
               </>

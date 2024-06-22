@@ -11,7 +11,7 @@ const lessons=[
         "day": 3,
         "hour": 13,
         "course_id": 1,
-        "video_name": null
+        "video_name": 'lessonVideo_1718918459127.mp4'
     },
     {
         "id": 2,
@@ -21,7 +21,7 @@ const lessons=[
         "day": 5,
         "hour": 9,
         "course_id": 1,
-        "video_name": null
+        "video_name": 'lessonVideo_1718918459127.mp4'
   },
   {
       "id": 3,
@@ -31,7 +31,7 @@ const lessons=[
       "day": 3,
       "hour": 11,
       "course_id": 2,
-      "video_name": null
+      "video_name": 'lessonVideo_1718918459127.mp4'
   }
    
 ];

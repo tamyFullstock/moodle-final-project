@@ -50,7 +50,7 @@ function HomeOrLogin() {
         setAuth(false);
         console.log(err);    
       });
-  }, [port, setAuth]);
+  }, [port, auth]);
 
   return (
     <div className='containerHome'>

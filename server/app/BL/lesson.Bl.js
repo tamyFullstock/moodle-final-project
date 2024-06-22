@@ -78,7 +78,7 @@ lessonCrud.update = (req, res) => {
   }
 
   // Retrieve the old lesson data to handle file deletion if necessary
-  Lesson.findById(req.params.id, (err, oldData) => {
+  Lesson.findById(req.params.id, async (err, oldData) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -95,7 +95,7 @@ lessonCrud.update = (req, res) => {
         // Delete old video file if a new file is uploaded
         if (oldData.video_name) {
           const filePath = path.join(__dirname, '../../public/lesson/videos', oldData.video_name);
-          fs.unlink(filePath, (err) => {
+          await fs.unlink(filePath, (err) => {
             if (err) console.error("Failed to delete old video:", err);
           });
         }
@@ -134,7 +134,7 @@ lessonCrud.update = (req, res) => {
 // Delete a lesson by ID
 lessonCrud.delete = (req, res) => {
   // Retrieve the lesson data to handle file deletion
-  Lesson.findById(req.params.id, (err, data) => {
+  Lesson.findById(req.params.id, async (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -149,7 +149,7 @@ lessonCrud.delete = (req, res) => {
       // Delete video file if it exists
       if (data.video_name) {
         const filePath = path.join(__dirname, '../../public/lesson/videos', data.video_name);
-        fs.unlink(filePath, (err) => {
+        await fs.unlink(filePath, (err) => {
           if (err) console.error("Failed to delete video:", err);
         });
       }

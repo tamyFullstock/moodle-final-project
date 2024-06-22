@@ -11,7 +11,7 @@ const users =[
       "address": "Rishon Lezzion Rotchild 67",
       "phone": 547865011,
       "type": "lecturer",
-      "photo": null,
+      "photo": 'userPhoto_1719093106692.png',
       "status": 1
   },
   {
@@ -23,7 +23,7 @@ const users =[
     "address": "Tel Aviv Jhonson 3",
     "phone": 549776453,
     "type": "student",
-    "photo": null,
+    "photo": 'userPhoto_1719093106692.png',
     "status": 1
   },
   {
@@ -35,7 +35,7 @@ const users =[
   "address": "Jerusalem David 98",
   "phone": 525561986,
   "type": "student",
-  "photo": null,
+  "photo": 'userPhoto_1719093106692.png',
   "status": 1
   }
 ];

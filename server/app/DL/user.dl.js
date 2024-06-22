@@ -12,6 +12,7 @@ class User {
       this.phone = user.phone;
       this.type = user.type;
       this.status = user.status;
+      this.photo = user.photo;
     }
   }
 }
@@ -85,8 +86,8 @@ User.getAll = (user_type, username, result) => {
 //update a user found by its id
 User.updateById = (id, user, result) => {
   sql.query(
-    "UPDATE users SET  first_name=?, last_name=?, tz=?, email=?, address=?, phone=?, type=?, status=? WHERE id = ?",
-    [ user.first_name, user.last_name, user.tz, user.email, user.address, user.phone, user.type, user.status, id],
+    "UPDATE users SET  first_name=?, last_name=?, tz=?, email=?, address=?, phone=?, type=?, photo=?, status=? WHERE id = ?",
+    [ user.first_name, user.last_name, user.tz, user.email, user.address, user.phone, user.type, user.photo, user.status, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);

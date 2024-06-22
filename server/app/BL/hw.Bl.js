@@ -69,7 +69,7 @@ hwCrud.update = (req, res) => {
     });
   }
 
-  Hw.findById(req.params.id, (err, oldData) => {
+  Hw.findById(req.params.id,async (err, oldData) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -86,7 +86,7 @@ hwCrud.update = (req, res) => {
         // Delete the old file
         if (oldData.file_name) {
           const filePath = path.join(__dirname, '../../public/hw/files', oldData.file_name);
-          fs.unlink(filePath, (err) => {
+          await fs.unlink(filePath, (err) => {
             if (err) console.error("Failed to delete old file:", err);
           });
         }
@@ -118,7 +118,7 @@ hwCrud.update = (req, res) => {
 
 // Delete a homework with the specified id in the request
 hwCrud.delete = (req, res) => {
-  Hw.findById(req.params.id, (err, data) => {
+  Hw.findById(req.params.id, async (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -133,7 +133,7 @@ hwCrud.delete = (req, res) => {
       // Delete the file
       if (data.file_name) {
         const filePath = path.join(__dirname, '../../public/hw/files', data.file_name);
-        fs.unlink(filePath, (err) => {
+        await fs.unlink(filePath, (err) => {
           if (err) console.error("Failed to delete file:", err);
         });
       }
@@ -159,16 +159,16 @@ hwCrud.delete = (req, res) => {
 hwCrud.deleteAll = (req, res) => {
   // Delete all files from the hw/files directory
   const directoryPath = path.join(__dirname, '../../public/hw/files');
-  fs.readdir(directoryPath, (err, files) => {
+  fs.readdir(directoryPath,(err, files) => {
     if (err) {
       console.error("Could not list the directory.", err);
       res.status(500).send({
         message: "Error listing files in directory."
       });
     } else {
-      files.forEach((file, index) => {
+      files.forEach(async (file, index) => {
         const filePath = path.join(directoryPath, file);
-        fs.unlink(filePath, (err) => {
+        await fs.unlink(filePath, (err) => {
           if (err) console.error("Failed to delete file:", err);
         });
       });

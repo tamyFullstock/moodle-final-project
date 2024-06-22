@@ -5,7 +5,7 @@ import showErrorMessage from '../../../helpers/alertMessage';
 
 const UpdateUser = ({ user, onUpdate, onClose }) => {
   const port = Globals.PORT_SERVER;
-  //fields of user
+  // Fields of user
   const [formData, setFormData] = useState({
     id: user.id,
     tz: user.tz,
@@ -17,6 +17,8 @@ const UpdateUser = ({ user, onUpdate, onClose }) => {
     type: user.type
   });
 
+  const [photo, setPhoto] = useState(null);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -25,35 +27,44 @@ const UpdateUser = ({ user, onUpdate, onClose }) => {
     });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try{
+  const handleFileChange = (e) => {
+    setPhoto(e.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const formDataToSubmit = new FormData();
+      for (const key in formData) {
+        formDataToSubmit.append(key, formData[key]);
+      }
+      if (photo) {
+        formDataToSubmit.append('userPhoto', photo);
+      }
+
       // Update the user on the server
       const response = await fetch(`http://localhost:${port}/users/${user.id}`, {
         method: 'PUT',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-      })
+        body: formDataToSubmit
+      });
+
       if (!response.ok) {
-        if(response.status == "400"){ //not valid user input in fields
+        if (response.status === 400) { // Not valid user input in fields
           const data = await response.json();
           throw new Error(data.message);
         }
         const data = await response.json();
-        console.log(data.message)
+        console.log(data.message);
         throw new Error('Error updating new student');
       }
-      //succeed to update the use - save him (also in local storage by the parent)
+
+      // Succeeded to update the user - save him (also in local storage by the parent)
       const updatedUser = await response.json();
       onUpdate(updatedUser);
-    }
-    catch(error) {
+      onClose();
+    } catch (error) {
       console.error('Error updating user:', error);
-      showErrorMessage("error while updating user")
-    };
+      showErrorMessage("error while updating user");
+    }
   };
 
   return (
@@ -96,8 +107,15 @@ const UpdateUser = ({ user, onUpdate, onClose }) => {
             value={formData.phone}
             onChange={handleChange}
           />
+          <label>Upload Photo:</label>
+          <input
+            type="file"
+            name="photo"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
           <div className="buttons">
-            <button type="submit" onClick={handleSubmit}>Save</button>
+            <button type="button" onClick={handleSubmit}>Save</button>
             <button type="button" onClick={onClose}>Cancel</button>
           </div>
         </form>

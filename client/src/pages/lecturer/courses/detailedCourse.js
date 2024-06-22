@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom';
+import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import Globals from '../../../Globals.js';
 import '../../../style/pages/lecturer/detailedCard.css'
 import NewStudentForm from './components/newCoursePForm.js';
 
 //show the course details and its students
 function CourseDetails() {
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') ?? '{}'); //get current user from ls
   const { courseId } = useParams(); // Extract courseId from the URL
   const location = useLocation();
@@ -101,7 +102,7 @@ function CourseDetails() {
                     <li key={st.id}>
                         <p>{st.student_name}</p>
                         <button className="delete-button" onClick={() => deleteStudent(st.id)}>Remove Student</button>
-                        <button className="update-button" onClick={() => {}}>Student Details</button>
+                        <button className="update-button" onClick={() => {navigate(`./${st.id}/details?observer=nonself`)}}>Student Details</button>
                     </li>
                     ))}
                 </ul>

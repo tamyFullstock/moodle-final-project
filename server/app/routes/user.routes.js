@@ -11,7 +11,7 @@ const userRoute = app => {
   const router = express.Router();
 
   // Create a new user with validation
-  router.post("/", FileUpload('user/photo', validImageTypes, 'userPhoto'), chechUserValidation, users.create);
+  router.post("/", FileUpload('user/photos', validImageTypes, 'userPhoto'), chechUserValidation, users.create);
 
   // Retrieve all users
   router.get("/", users.findAll);
@@ -20,7 +20,7 @@ const userRoute = app => {
   router.get("/:id", users.findOne);
 
   // Update a user with id with validation
-  router.put("/:id", FileUpload('user/photo', validImageTypes, 'userPhoto'), chechUserValidation, users.update);
+  router.put("/:id", FileUpload('user/photos', validImageTypes, 'userPhoto'), chechUserValidation, users.update);
 
   // Delete a user with id
   router.delete("/:id", users.delete);

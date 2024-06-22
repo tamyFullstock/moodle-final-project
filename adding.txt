@@ -9,4 +9,3 @@ make the app for the student.
 
 improve sql queries in server to join instead of 2 queries..
 
-add a pasport photo to any user. show it in user details
