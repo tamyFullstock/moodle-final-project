@@ -207,7 +207,9 @@ taskCrud.findAllWithDetails = (req, res) => {
   const lesson = req.query.lesson;
   const page = req.query.page; // what page to return
   const limit = req.query.limit; // number of tasks in page
-  Task.getAllDetailed(page, limit, student, lesson, (err, data) => {
+  const course = req.query.course; 
+  const completed = req.query.completed;
+  Task.getAllDetailed(page, limit, student, lesson, course,completed, (err, data) => {
     if (err) {
       return res.status(500).send({
         message: err.message || "Some error occurred while retrieving tasks."

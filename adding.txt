@@ -9,3 +9,4 @@ make the app for the student.
 
 improve sql queries in server to join instead of 2 queries..
 
+add completed to get the tasks filtere by from server ad not filter in client

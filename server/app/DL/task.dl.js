@@ -194,33 +194,37 @@ Task.getAllWithHw = (page, limit, student_id, lesson_id, result) => {
 };
 
 //get all tasks with their corresponding hws, or get by filter 
-Task.getAllDetailed = (page, limit, student_id, lesson_id, result) => {
+Task.getAllDetailed = (page, limit, student_id, lesson_id, course_id, completed, result) => {
   let query = `SELECT t.*, 
   hw.file_name as hw_file_name, hw.description as hw_description, hw.lesson_id as lesson_id,
   l.title as lesson_title, l.course_id as course_id, c.subject as course_name
    FROM tasks t join homeworks hw on t.hw_id = hw.id 
    join lessons l on l.id = hw.lesson_id
-   join courses c on c.id = l.course_id`;
-  //filter only by student
-  if(student_id){
-    query += ` WHERE t.student_id = '${student_id}'`;
+   join courses c on c.id = l.course_id WHERE 1=1`;
+
+  //filter
+    if(student_id){
+      query += ` And t.student_id = '${student_id}'`;
+    }
     if(lesson_id){
       query += `AND hw.lesson_id = '${lesson_id}'`
     }
-  }
-  //filter only by lesson
-  else if(lesson_id){
-    query += ` WHERE hw.lesson_id = '${lesson_id}'`;
-  }
-
+    if(course_id){
+      query += `AND l.course_id = '${course_id}'`
+    }
+    if(completed){
+      query += `AND t.completed = '${completed}'`
+    }
+  
+  
   // Add ORDER BY clause to sort by lesson date
   query += ` ORDER BY l.year DESC, l.month DESC, l.day DESC, l.hour DESC`;
 
   //return tasks per page
   if(page){
-    //default in 3 tasks per page
-   if(!limit || limit >3){
-     limit = 3;
+    //default in 6 tasks per page
+   if(!limit || limit >6){
+     limit = 6;
    }
    query += ` LIMIT ${limit} OFFSET ${(page-1)*limit}`; //limit is number of tasks to return, offset is where to start the counting
  }

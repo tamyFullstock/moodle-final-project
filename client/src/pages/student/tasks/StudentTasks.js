@@ -1,9 +1,10 @@
 // TaskList.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, searchParams, useSearchParams } from 'react-router-dom';
 import '../../../style/pages/student/tasks.css'
 import Globals from '../../../Globals';
+import TasksHeader from './components/TasksHeader';
 
 const StudentTasks = () => {
     const port = Globals.PORT_SERVER; // Port of the server
@@ -11,13 +12,22 @@ const StudentTasks = () => {
     const [tasks, setTasks] = useState([]);
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true); // Still not get the data yet
+    const [searchParams, setSearchParams] = useSearchParams(); 
+    const course = searchParams.get('course')??"All";  //semester to filter by.
 
     useEffect(() => {
         // Fetch the tasks from your API
         const fetchTasks = async () => {
             try {
+                let query;
+                if (course == "All"){
+                    query = `http://localhost:${port}/tasks/detailed?user=${user.id}`;
+                }
+                else{
+                    query = `http://localhost:${port}/tasks/detailed?user=${user.id}&course=${course}`;
+                }
                 // Fetch all not completed tasks
-                const response = await fetch(`http://localhost:${port}/tasks/detailed?user=${user.id}`);
+                const response = await fetch(query);
                 if (!response.ok) {
                   throw new Error(`Error getting user's tasks`);
                 }
@@ -32,7 +42,7 @@ const StudentTasks = () => {
         };
 
         fetchTasks();
-    }, []);
+    }, [course]);
 
     // Navigate to the lesson with this task for user to complete the task
     const handleTaskClick = (t) => {
@@ -41,6 +51,7 @@ const StudentTasks = () => {
 
     return (
         <div className="task-list">
+            <TasksHeader/>
             {isLoading ? <div>Loading..</div> : 
             <div>
                 <h2>Tasks To Complete</h2>

@@ -4,45 +4,44 @@ import { useSearchParams, NavLink, useLocation } from 'react-router-dom';
 import '../../../../style/pages/lecturer/courses/coursesHeader.css';
 
 function LessonsHeader({ setShowNewLessonForm }) {
-  const user = JSON.parse(localStorage.getItem('user'??{})); //get current user from ls
+  const user = JSON.parse(localStorage.getItem('user' ?? '{}')); // Get current user from localStorage
   const location = useLocation();
-  const search = location.state?.search || ""; //use it to maintain params between pages
-  const [year, setYear] = useState(''); //year to filter by the lessons
+  const search = location.state?.search || ""; // Use it to maintain params between pages
+  const [year, setYear] = useState(''); // Year to filter by the lessons
   const [searchParams, setSearchParams] = useSearchParams();
-  const port = Globals.PORT_SERVER;  //port of the server
-  const maxYear = new Date().getFullYear()
+  const port = Globals.PORT_SERVER; // Port of the server
+  const maxYear = new Date().getFullYear();
   
-  //handle the search params according to the year user chose
+  // Handle the search params according to the year user chose
   const handleYearChange = (event) => {  
     const newYear = event.target.value;
     setYear(newYear);
     setSearchParams({ year: newYear });
   };
 
-
   return (
-    <div className="lecturer-header">
-      <div className="first-input">
-        {/*field for year (2000-current year) to filter by */}
-        <label htmlFor="year">year:</label>
+    <div className="lessons-header">
+      <div className="year-input">
+        {/* Field for year (2020-current year) to filter by */}
+        <label htmlFor="year">Year:</label>
         <input
           type="number"
-          id="semester"
+          id="year"
           min="2020"
           max={maxYear}
+          value={year}
           onChange={handleYearChange}
         />
       </div>
       <div className="back-button">
-        <button><NavLink 
-                    to= {`/${user.type}/${user.id}/courses?${search}`}
-                >
-                    back to all courses
-          </NavLink></button>
+        <button>
+          <NavLink to={`/${user.type}/${user.id}/courses?${search}`}>
+            Back to All Courses
+          </NavLink>
+        </button>
       </div>
-      {/*button to add a new lesson- show newLesson component */}
-      <div className="new-item-button">
-        <button onClick={() => setShowNewLessonForm (true)}>New Lesson</button>
+      <div className="new-lesson-button">
+        <button onClick={() => setShowNewLessonForm(true)}>New Lesson</button>
       </div>
     </div>
   );
