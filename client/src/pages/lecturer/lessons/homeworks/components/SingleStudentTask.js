@@ -3,16 +3,13 @@ import Globals from '../../../../../Globals';
 function SingleStudentsTasks({student, editingGrade, setEditingGrade, handleGradeSubmit}) {
   const port = Globals.PORT_SERVER;
 
-  // Function to open the file URL
-  const openFile = (fileUrl) => {
-    window.open(fileUrl, '_blank');
-  };
-
   return (
     <li key={student.id} className={student.completed === 1 ? 'completed' : 'not-completed'}>
         {student.student_name} {student.completed === 1 ? '✔️' : '❌'}
         {student.file_name && (
-        <button className="file-button" onClick={() => openFile(student.file_name)}>Open File</button>
+        <a href={`http://localhost:${port}/task/files/${student.file_name}`} download target="_blank" rel="noopener noreferrer">
+           <button className="file-button">Open Answers File</button>
+        </a>
         )}
         {/*an input field for updating grade. show only for the task been upadted */}
         {editingGrade === student.taskId ? 

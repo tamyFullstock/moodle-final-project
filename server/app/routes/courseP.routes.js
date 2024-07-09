@@ -21,6 +21,9 @@ const coursePRoute = app => {
   // Delete all users
   router.delete("/", coursesP.deleteAll);
 
+  // Retrieve all users
+  router.get("/studentCourses/:studentId", coursesP.findStudentCourses);  //get all courses of a single student as courses objects
+
   app.use('/coursesP', router);
 };
 

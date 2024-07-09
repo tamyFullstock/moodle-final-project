@@ -77,7 +77,7 @@ const DetailedUser = () => {
             <p><strong>Type:</strong> {user.type}</p>
             {observer === 'self' && (
               <div className='update-button-container'>
-                <button onClick={handleEditClick}>Update User</button>
+                <button onClick={handleEditClick}>Update Details</button>
               </div>
             )}
             {observer === 'nonself' && (

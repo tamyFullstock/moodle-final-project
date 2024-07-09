@@ -103,4 +103,22 @@ CourseP.removeAll = result => {
   });
 };
 
+//get all courses of a student
+CourseP.getByStudent = (student_id, semester, result) => {
+  let query = `SELECT c.* FROM coursesP p join courses c on p.course_id = c.id where student_id = ${student_id}`;
+  if(semester){
+    query += ` and semester = ${semester}`
+  }
+  sql.query(query, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err,null);
+      return;
+    }
+    console.log(`courses of student with id: ${student_id}: `, res);
+    result(null, res);
+  });
+};
+
+
 export default CourseP;

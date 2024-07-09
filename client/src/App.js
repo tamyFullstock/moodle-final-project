@@ -12,6 +12,9 @@ import LessonDetails from './pages/lecturer/lessons/detailedLesson';
 import CourseDetails from './pages/lecturer/courses/detailedCourse';
 import DetailsHw from './pages/lecturer/lessons/homeworks/detailedHomework';
 import DetailedUser from './pages/UserDetails/DetailedUser';
+import StudentCourses from './pages/student/courses/studentCourses'
+import StudentDetailedLesson from './pages/student/lessons/detailedLesson'
+import StudentTasks from './pages/student/tasks/StudentTasks';
 
 function App() {
   return (
@@ -45,6 +48,28 @@ function App() {
               </Route>
             </Route>
           </Route>
+          <Route path = 'student/:userId' element = {<LecturerLayout/>}>
+              <Route index />
+              <Route path = 'details' element = {<DetailedUser/>}/>
+              <Route path = 'tasks' element = {<StudentTasks/>}/>
+              <Route path = "courses" >
+                <Route index element = {<StudentCourses/>}/>
+                <Route path = ":courseId">
+                    <Route path="lessons" >
+                        <Route index element = {<LecturerLessons/>}/>
+                        <Route path = ":lessonId">
+                          <Route index element = {<StudentDetailedLesson/>}/>
+                          <Route path = "homework/:homeworkId" element= {<DetailsHw/>}/>
+                        </Route> 
+                    </Route>
+                    <Route path="students" >
+                        <Route index element = {<CourseDetails/>}/>
+                        <Route path = ":studentId" element = {<LessonDetails/>}/>
+                        <Route path = ":studentId/details" element = {<DetailedUser/>}/>
+                    </Route>
+                </Route>
+              </Route>
+            </Route>
         </Routes>
       </ThemeProvider>
     </BrowserRouter>

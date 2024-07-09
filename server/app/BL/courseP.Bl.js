@@ -106,5 +106,19 @@ coursePCrud.deleteAll = (req, res) => {
   });
 };
 
+//get all courses of students as a course object
+coursePCrud.findStudentCourses = (req, res) => {
+  const student_id = req.params.studentId;
+  const semester = req.query.semester;
+  CourseP.getByStudent(student_id, semester,  (err, data) => {
+    if (err){
+      res.status(500).send({
+        message:
+          err.message || `Some error occurred while retrieving courses of student with id: ${student_id}.`
+      });}
+    else res.send(data);
+  });
+};
+
 
 export default coursePCrud;

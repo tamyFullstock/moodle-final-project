@@ -1,50 +1,58 @@
-import  Task from "../DL/task.dl.js";
+import Task from "../DL/task.dl.js";
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
+// Get the equivalent of __dirname for ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Task CRUD object
 const taskCrud = {};
 
 // Create and Save a new task
 taskCrud.create = (req, res) => {
   // Validate request
   if (!req.body) {
-    res.status(400).send({
+    return res.status(400).send({
       message: "Content can not be empty!"
     });
   }
 
-  // Create a user
+  // Create a task instance with the request body and file name
   const task = new Task({
-  student_id : req.body.student_id,
-  hw_id : req.body.hw_id,
-  completed : req.body.completed,
-  file_name : req.body.file_name ?? null,
-  grade: req.body.grade ?? null
+    student_id: req.body.student_id,
+    hw_id: req.body.hw_id,
+    completed: req.body.completed,
+    file_name: req.file?.filename ?? null,
+    grade: req.body.grade ?? null
   });
 
-  // Save task in the database using the DL layer, then return the response object with status code and data the error is a data
+  // Save task in the database
   Task.create(task, (err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the task."
+    if (err) {
+      return res.status(500).send({
+        message: err.message || "Some error occurred while creating the task."
       });
-    else res.send(data);
+    }
+    res.send(data);
   });
 };
 
-// Retrieve all tasks from the database (with condition).
-//query effort us to filter records in db based on some conditions (same as query? username=?)
+// Retrieve all tasks from the database (with condition)
 taskCrud.findAll = (req, res) => {
   const student = req.query.user;
   const hw = req.query.homework;
-  const page = req.query.page; //what page to return
-  const limit = req.query.limit;  //number of photos in page
-  Task.getAll(page, limit, hw, student, (err, data) => {
-    if (err){
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving tasks."
-      });}
-    else res.send(data);
+  const lesson = req.query.lesson;
+  const page = req.query.page; // what page to return
+  const limit = req.query.limit; // number of tasks in page
+  Task.getAll(page, limit, hw, student, lesson, (err, data) => {
+    if (err) {
+      return res.status(500).send({
+        message: err.message || "Some error occurred while retrieving tasks."
+      });
+    }
+    res.send(data);
   });
 };
 
@@ -53,82 +61,160 @@ taskCrud.findOne = (req, res) => {
   Task.findById(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
-        res.status(404).send({
+        return res.status(404).send({
           message: `Not found task with id ${req.params.id}.`
         });
-      } else {
-        res.status(500).send({
-          message: "Error retrieving task with id " + req.params.id
-        });
-        console.log(res);
       }
-    } else res.send(data);
+      return res.status(500).send({
+        message: "Error retrieving task with id " + req.params.id
+      });
+    }
+    res.send(data);
   });
 };
 
-
-// Update a task identified by the id in the request 
-//to update url is like /:id
+// Update a task identified by the id in the request
 taskCrud.update = (req, res) => {
-  // Validate Request
+  // Validate request
   if (!req.body) {
-    res.status(400).send({
+    return res.status(400).send({
       message: "Content can not be empty!"
     });
   }
 
-  Task.updateById(
-    req.params.id,
-    new Task(req.body),
-    (err, data) => {
+  // Retrieve the old task data to handle file deletion if necessary
+  Task.findById(req.params.id, async (err, oldData) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        return res.status(404).send({
+          message: `Not found task with id ${req.params.id}.`
+        });
+      }
+      return res.status(500).send({
+        message: "Error retrieving task with id " + req.params.id
+      });
+    }
+
+    let newFileName = oldData.file_name;
+    if (req.file) {
+      // Delete old file if a new file is uploaded
+      if (oldData.file_name) {
+        const filePath = path.join(__dirname, '../../public/task/files', oldData.file_name);
+        await fs.unlink(filePath, (err) => {
+          if (err) console.error("Failed to delete old file:", err);
+        });
+      }
+      newFileName = req.file.filename;
+    }
+
+    // Create a Task instance with the new data
+    const task = new Task({
+      student_id: req.body.student_id,
+      hw_id: req.body.hw_id,
+      completed: req.body.completed,
+      file_name: newFileName,
+      grade: req.body.grade ?? null
+    });
+
+    // Update Task in the database
+    Task.updateById(req.params.id, task, (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
-          res.status(404).send({
+          return res.status(404).send({
             message: `Not found task with id ${req.params.id}.`
           });
-        } else {
-          res.status(500).send({
-            message: "Error updating task with id " + req.params.id
-          });
         }
-      } else res.send(data);
-    }
-  );
+        return res.status(500).send({
+          message: "Error updating task with id " + req.params.id
+        });
+      }
+      res.send(data);
+    });
+  });
 };
 
 // Delete a task with the specified id in the request
-//to delete url is like /:id
 taskCrud.delete = (req, res) => {
-  Task.remove(req.params.id, (err, data) => {
+  // Retrieve the task data to handle file deletion
+  Task.findById(req.params.id, async (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
-        res.status(404).send({
+        return res.status(404).send({
           message: `Not found task with id ${req.params.id}.`
         });
-      } else {
-        res.status(500).send({
+      }
+      return res.status(500).send({
+        message: "Error retrieving task with id " + req.params.id
+      });
+    }
+
+    // Delete file if it exists
+    if (data.file_name) {
+      const filePath = path.join(__dirname, '../../public/task/files', data.file_name);
+      await fs.unlink(filePath, (err) => {
+        if (err) console.error("Failed to delete file:", err);
+      });
+    }
+
+    // Delete Task from the database
+    Task.remove(req.params.id, (err, result) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          return res.status(404).send({
+            message: `Not found task with id ${req.params.id}.`
+          });
+        }
+        return res.status(500).send({
           message: "Could not delete task with id " + req.params.id
         });
       }
-    } else res.send({ message: `task was deleted successfully!` });
+      res.send({ message: `Task was deleted successfully!` });
+    });
   });
 };
 
-// Delete all tasks from the database.
+// Delete all tasks from the database
 taskCrud.deleteAll = (req, res) => {
   Task.removeAll((err, data) => {
-    if (err)
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all tasks."
+    if (err) {
+      return res.status(500).send({
+        message: err.message || "Some error occurred while removing all tasks."
       });
-    else res.send({ message: `All tasks were deleted successfully!` });
+    }
+    res.send({ message: `All tasks were deleted successfully!` });
   });
 };
 
-taskCrud.upload = (req, res) =>{
-  
-}
+// Retrieve all tasks with their corresponding hw from the database (with condition)
+taskCrud.findAllWithHw = (req, res) => {
+  const student = req.query.user;
+  const lesson = req.query.lesson;
+  const page = req.query.page; // what page to return
+  const limit = req.query.limit; // number of tasks in page
+  Task.getAllWithHw(page, limit, student, lesson, (err, data) => {
+    if (err) {
+      return res.status(500).send({
+        message: err.message || "Some error occurred while retrieving tasks."
+      });
+    }
+    res.send(data);
+  });
+};
 
+// Retrieve all tasks with their corresponding hw, lesson, course from the database (with condition)
+taskCrud.findAllWithDetails = (req, res) => {
+  const student = req.query.user;
+  const lesson = req.query.lesson;
+  const page = req.query.page; // what page to return
+  const limit = req.query.limit; // number of tasks in page
+  Task.getAllDetailed(page, limit, student, lesson, (err, data) => {
+    if (err) {
+      return res.status(500).send({
+        message: err.message || "Some error occurred while retrieving tasks."
+      });
+    }
+    res.send(data);
+  });
+};
 
 export default taskCrud;

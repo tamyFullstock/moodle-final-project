@@ -24,6 +24,10 @@
   border-radius: 4px;
 }
 
+.student-list li a{
+  margin-left: auto;
+}
+
 .completed {
   background-color: #e0ffe0; /* Updated background color */
 }

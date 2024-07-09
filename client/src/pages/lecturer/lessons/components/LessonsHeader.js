@@ -35,7 +35,7 @@ function LessonsHeader({ setShowNewLessonForm }) {
       </div>
       <div className="back-button">
         <button><NavLink 
-                    to= {`/lecturer/${user.id}/courses?${search}`}
+                    to= {`/${user.type}/${user.id}/courses?${search}`}
                 >
                     back to all courses
           </NavLink></button>

@@ -16,7 +16,7 @@ const tasks=[
       "student_id": 3,
       "hw_id": 1,
       "completed": 1,
-      "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+      "file_name": "hw_answers.pdf",
       "grade": 80
     },
     {
@@ -24,15 +24,15 @@ const tasks=[
       "student_id": 2,
       "hw_id": 2,
       "completed": 1,
-      "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+      "file_name": "hw_answers.pdf",
       "grade": 90
   },
   {
     "id": 4,
     "student_id": 3,
     "hw_id": 2,
-    "completed": 0,
-    "file_name": "https://www.math.cmu.edu/~jmackey/151_128/bws_book.pdf",
+    "completed": 1,
+    "file_name": "hw_answers.pdf",
     "grade" : 68
   }
 ];

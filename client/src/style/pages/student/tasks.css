@@ -1,0 +1,81 @@
+/* Container for the entire task list */
+.task-list {
+    padding: 20px;
+    background-color: #f4f4f9;
+    max-width: 900px;
+    margin: 30px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Title for the task list */
+.task-list h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-align: center;
+}
+
+/* List styling for tasks */
+.task-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Individual task item styling */
+.task-item {
+    background-color: #fafafa;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Task info container */
+.task-info {
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+/* Task info text styling */
+.task-info h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.5em;
+}
+
+.task-info p {
+    color: #666;
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+/* Task buttons container */
+.task-buttons {
+    display: flex;
+    align-items: center;
+}
+
+/* Button styling for downloading homework */
+.download-button,
+.go-to-lesson-button {
+    background-color: #007bff; /* Shade of blue */
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-left: 10px;
+}
+
+/* Hover effect for buttons */
+.download-button:hover,
+.go-to-lesson-button:hover {
+    background-color: #0056b3; /* Darker shade of blue */
+    transform: scale(1.05);
+}

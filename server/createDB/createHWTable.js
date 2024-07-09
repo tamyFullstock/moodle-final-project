@@ -5,25 +5,25 @@ const homeworks=[
     {
         "id": 1,
         "lesson_id": 1,
-        "file_name": null,
+        "file_name": 'hw.pdf',
         "description": "the history of the mathematics"
     },
     {
       "id": 2,
       "lesson_id": 2,
-      "file_name": null,
+      "file_name": 'hw.pdf',
       "description": "science and high-tech"
     },
     {
       "id": 3,
       "lesson_id": 1,
-      "file_name": null,
+      "file_name": 'hw.pdf',
       "description": "lab 2 mathematicinas"
     },
     {
       "id": 4,
       "lesson_id": 1,
-      "file_name": null,
+      "file_name": 'hw.pdf',
       "description": "lab 1 egyption code"
     }
   ];

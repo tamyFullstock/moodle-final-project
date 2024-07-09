@@ -29,6 +29,9 @@ const EditTaskValidation = (req, res, next) => {
           return res.status(403).json({message: "forbidden action for not lecturer user"}) //403 is forbidden status
         }
       }
+      else{ //not chnage the grade- authorized action
+        next();
+      }
     }
   });
     
