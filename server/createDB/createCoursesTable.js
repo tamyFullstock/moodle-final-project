@@ -1,21 +1,97 @@
 import mysql from 'mysql2';
 import con from "./connection.js"
 
-const courses=[
-    {
-        "id": 1,
-        "subject": "mathematic",
-        "semester": 1,
-        "lecturer_id": 1
-   },
-   {
+const courses = [
+  {
+    "id": 1,
+    "subject": "mathematic",
+    "semester": 1,
+    "lecturer_id": 1
+  },
+  {
     "id": 2,
     "subject": "computer science",
     "semester": 1,
     "lecturer_id": 1
+  },
+  {
+    "id": 3,
+    "subject": "physics",
+    "semester": 1,
+    "lecturer_id": 1
+  },
+  {
+    "id": 4,
+    "subject": "chemistry",
+    "semester": 1,
+    "lecturer_id": 1
+  },
+  {
+    "id": 5,
+    "subject": "biology",
+    "semester": 1,
+    "lecturer_id": 1
+  },
+  {
+    "id": 6,
+    "subject": "english",
+    "semester": 1,
+    "lecturer_id": 1
+  },
+  {
+    "id": 7,
+    "subject": "history",
+    "semester": 1,
+    "lecturer_id": 1
+  },
+  {
+    "id": 8,
+    "subject": "geography",
+    "semester": 1,
+    "lecturer_id": 1
+  },
+  {
+    "id": 9,
+    "subject": "philosophy",
+    "semester": 2,
+    "lecturer_id": 1
+  },
+  {
+    "id": 10,
+    "subject": "psychology",
+    "semester": 3,
+    "lecturer_id": 1
+  },
+  {
+    "id": 11,
+    "subject": "sociology",
+    "semester": 3,
+    "lecturer_id": 1
+  },
+  {
+    "id": 12,
+    "subject": "art",
+    "semester": 2,
+    "lecturer_id": 1
+  },
+  {
+    "id": 13,
+    "subject": "torah",
+    "semester": 2,
+    "lecturer_id": 1
+  },
+  {
+    "id": 14,
+    "subject": "gym",
+    "semester": 2,
+    "lecturer_id": 1
+  },
+  {
+    "id": 15,
+    "subject": "japanees art",
+    "semester": 3,
+    "lecturer_id": 1
   }
-    
-  
 ];
 
 const createCoursesTable = function(){

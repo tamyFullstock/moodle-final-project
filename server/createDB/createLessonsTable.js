@@ -11,7 +11,7 @@ const lessons=[
         "day": 3,
         "hour": 13,
         "course_id": 1,
-        "video_name": 'lessonVideo_1718918459127.mp4'
+        "video_name": 'vector.mp4'
     },
     {
         "id": 2,
@@ -21,7 +21,7 @@ const lessons=[
         "day": 5,
         "hour": 9,
         "course_id": 1,
-        "video_name": 'lessonVideo_1718918459127.mp4'
+        "video_name": 'vector.mp4'
   },
   {
       "id": 3,
@@ -30,9 +30,59 @@ const lessons=[
       "month": 12, 
       "day": 3,
       "hour": 11,
-      "course_id": 2,
-      "video_name": 'lessonVideo_1718918459127.mp4'
-  }
+      "course_id": 1,
+      "video_name": 'vector.mp4'
+  },
+  {
+    "id": 4,
+    "title": "vectors part 1",
+    "year": 2021,
+    "month": 12, 
+    "day": 1,
+    "hour": 15,
+    "course_id": 1,
+    "video_name": 'vector.mp4'
+},
+{
+    "id": 5,
+    "title": "vectors part 2",
+    "year": 2021,
+    "month": 10, 
+    "day": 5,
+    "hour": 9,
+    "course_id": 1,
+    "video_name": 'vector.mp4'
+},
+{
+  "id": 6,
+  "title": "heap algorithms",
+  "year": 2022,
+  "month": 12, 
+  "day": 3,
+  "hour": 11,
+  "course_id": 1,
+  "video_name": 'vector.mp4'
+},
+{
+  "id": 7,
+  "title": "list algorithms",
+  "year": 2020,
+  "month": 9, 
+  "day": 3,
+  "hour": 8,
+  "course_id": 1,
+  "video_name": 'vector.mp4'
+},
+{
+  "id": 8,
+  "title": "squares areas",
+  "year": 2020,
+  "month": 12, 
+  "day": 3,
+  "hour": 11,
+  "course_id": 1,
+  "video_name": 'vector.mp4'
+}
    
 ];
 

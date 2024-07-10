@@ -13,18 +13,22 @@ const StudentTasks = () => {
     const navigate = useNavigate();
     const [isLoading, setIsLoading] = useState(true); // Still not get the data yet
     const [searchParams, setSearchParams] = useSearchParams(); 
+    const [hasMore, setHasMore] = useState(true);
     const course = searchParams.get('course')??"All";  //semester to filter by.
+    const page = searchParams.get('page')??"1";  //semester to filter by.
+
+    const loadMoreTasks = () =>{
+        searchParams.set("page", parseInt(page)+1);
+        setSearchParams(searchParams);
+    }
 
     useEffect(() => {
         // Fetch the tasks from your API
         const fetchTasks = async () => {
             try {
-                let query;
-                if (course == "All"){
-                    query = `http://localhost:${port}/tasks/detailed?user=${user.id}`;
-                }
-                else{
-                    query = `http://localhost:${port}/tasks/detailed?user=${user.id}&course=${course}`;
+                let query = `http://localhost:${port}/tasks/detailed?user=${user.id}&limit=6&page=${page}&completed=0`;
+                if (course != "All"){
+                    query+=`&course=${course}`
                 }
                 // Fetch all not completed tasks
                 const response = await fetch(query);
@@ -32,8 +36,16 @@ const StudentTasks = () => {
                   throw new Error(`Error getting user's tasks`);
                 }
                 const tasksList = await response.json();
-                console.log(tasksList)
-                setTasks(tasksList.filter(t=>!t.completed));
+                if(page==1){
+                    setTasks(tasksList);
+                }
+                else if (tasksList.length == 0){
+                    setHasMore(false)
+                }
+                else{
+                    setTasks(p=>p.concat(tasksList));
+                    console.log(tasks)
+                }
               } catch (err) {
                 console.log(err);
               } finally {
@@ -42,7 +54,7 @@ const StudentTasks = () => {
         };
 
         fetchTasks();
-    }, [course]);
+    }, [page, course]);
 
     // Navigate to the lesson with this task for user to complete the task
     const handleTaskClick = (t) => {
@@ -76,6 +88,10 @@ const StudentTasks = () => {
                 ) : (
                     <p>No incomplete tasks found.</p>
                 )}
+                {hasMore ? (
+                    <button onClick={loadMoreTasks} className="load-more-button">Load More Tasks</button>):
+                    (<p>No more tasks to load.</p>)
+                }
             </div>
             }
         </div>

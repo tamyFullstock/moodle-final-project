@@ -1,21 +1,101 @@
 import mysql from 'mysql2';
 import con from "./connection.js"
 
-const courses_participants=[
-    {
-        "id": 1,
-        "course_id": 1,
-        "student_id": 2
-   },
-   {
-        "id": 2,
-        "course_id": 1,
-        "student_id": 3
+const courses_participants = [
+  {
+    "id": 1,
+    "course_id": 1,
+    "student_id": 2
   },
   {
-      "id": 3,
-      "course_id": 2,
-      "student_id": 2
+    "id": 2,
+    "course_id": 1,
+    "student_id": 3
+  },
+  {
+    "id": 3,
+    "course_id": 2,
+    "student_id": 2
+  },
+  {
+    "id": 4,
+    "course_id": 2,
+    "student_id": 3
+  },
+  {
+    "id": 5,
+    "course_id": 3,
+    "student_id": 2
+  },
+  {
+    "id": 6,
+    "course_id": 3,
+    "student_id": 3
+  },
+  {
+    "id": 7,
+    "course_id": 4,
+    "student_id": 2
+  },
+  {
+    "id": 8,
+    "course_id": 4,
+    "student_id": 3
+  },
+  {
+    "id": 9,
+    "course_id": 5,
+    "student_id": 2
+  },
+  {
+    "id": 10,
+    "course_id": 6,
+    "student_id": 2
+  },
+  {
+    "id": 11,
+    "course_id": 7,
+    "student_id": 2
+  },
+  {
+    "id": 12,
+    "course_id": 8,
+    "student_id": 2
+  },
+  {
+    "id": 13,
+    "course_id": 9,
+    "student_id": 2
+  },
+  {
+    "id": 14,
+    "course_id": 10,
+    "student_id": 2
+  },
+  {
+    "id": 15,
+    "course_id": 11,
+    "student_id": 2
+  },
+  {
+    "id": 16,
+    "course_id": 12,
+    "student_id": 2
+  },
+  {
+    "id": 17,
+    "course_id": 1,
+    "student_id": 7
+  },
+  {
+    "id": 18,
+    "course_id": 1,
+    "student_id": 8
+  },
+  {
+    "id": 19,
+    "course_id": 1,
+    "student_id": 9
   }
 ];
 

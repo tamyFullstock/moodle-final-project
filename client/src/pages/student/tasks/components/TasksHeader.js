@@ -15,8 +15,8 @@ function TasksHeader() {
     const newCourse = event.target.value;
     setCourse(newCourse);
     searchParams.set("course", newCourse);
-    setSearchParams(searchParams);
     searchParams.set("page", 1);
+    setSearchParams(searchParams);
   };
 
   // get all the courses student is enrolled in
