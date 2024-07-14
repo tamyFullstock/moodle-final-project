@@ -31,7 +31,9 @@ const StudentTasks = () => {
                     query+=`&course=${course}`
                 }
                 // Fetch all not completed tasks
-                const response = await fetch(query);
+                const response = await fetch(query,{
+                    credentials: 'include', // Ensures cookies are sent with the request
+                });
                 if (!response.ok) {
                   throw new Error(`Error getting user's tasks`);
                 }
@@ -63,7 +65,7 @@ const StudentTasks = () => {
 
     return (
         <div className="task-list">
-            <TasksHeader/>
+            <TasksHeader setHasMore={setHasMore}/>
             {isLoading ? <div>Loading..</div> : 
             <div>
                 <h2>Tasks To Complete</h2>

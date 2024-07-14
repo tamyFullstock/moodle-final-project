@@ -20,7 +20,9 @@ function LecturerCourses() {
   useEffect(() => {
     async function getCourses() {
       try {
-        const response = await fetch(`http://localhost:${port}/courses?lecturer=${user.id}&semester=${semester}`);
+        const response = await fetch(`http://localhost:${port}/courses?lecturer=${user.id}&semester=${semester}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         let newList = await response.json();
         if (!response.ok) {
           throw new Error(`error getting courses of lecturer with ID ${user.id}`);
@@ -46,7 +48,6 @@ function LecturerCourses() {
     <div>
       {/*component with fields for making a new user*/}
       <CoursesHeader setShowNewCourseForm={() => setShowNewCourseForm(true)} />
-      <h2>Lecturer Courses</h2>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

@@ -144,14 +144,25 @@ const createUsersTable = function(){
       if (err) throw err;
       console.log("Users table created");
     });
-    //insert users to the table
-    for (let i = 0; i< users.length; i++){
-      sql = `INSERT INTO users(id, first_name, last_name, tz, email, address, phone, type, photo, status) VALUES('${users[i].id}','${users[i].first_name}','${users[i].last_name}','${users[i].tz}','${users[i].email}','${users[i].address}','${users[i].phone}','${users[i].type}', '${users[i].photo}','${users[i].status}')`;
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log(`${i} record inserted with id: ${result.insertId}`);
+    // Insert users into the table
+    users.forEach(user => {
+      sql = `INSERT INTO users(id, first_name, last_name, tz, email, address, phone, type, photo, status) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+      con.query(sql, [
+        user.id,
+        user.first_name,
+        user.last_name,
+        user.tz,
+        user.email,
+        user.address,
+        user.phone,
+        user.type,
+        user.photo,
+        user.status
+      ], function (err, result) {
+        if (err) throw err;
+        console.log(`Record inserted with id: ${result.insertId}`);
+      });
     });
-    }
     //console log the users
     con.query("SELECT * FROM users", function (err, result, fields) {
       if (err) throw err;

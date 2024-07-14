@@ -18,7 +18,9 @@ function StudentCourses() {
   useEffect(() => {
     async function getCourses() {
       try {
-        const response = await fetch(`http://localhost:${port}/coursesP/studentCourses/${user.id}?semester=${semester}`);
+        const response = await fetch(`http://localhost:${port}/coursesP/studentCourses/${user.id}?semester=${semester}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         let newList = await response.json();
         if (!response.ok) {
           throw new Error(`error getting courses of student with ID ${user.id}`);
@@ -37,7 +39,6 @@ function StudentCourses() {
     <div>
       {/*component with fields for making a new user*/}
       <CoursesHeader  />
-      <h2>Lecturer Courses</h2>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

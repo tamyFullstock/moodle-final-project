@@ -4,43 +4,43 @@ import Globals from '../../../Globals.js';
 import '../../../style/pages/lecturer/detailedCard.css';
 import UpdateTaskForm from './homeworks/updateTaskForm.js';
 
-// Component to show lesson details with its homework and tasks for the student
 function LessonDetails() {
-  const { lessonId } = useParams(); // Extract lessonId from the URL
+  const { lessonId } = useParams();
   const location = useLocation();
-  const search = location.state?.search || ""; // Use it to maintain params between pages
-  const port = Globals.PORT_SERVER; // Port of the server
-  const user = JSON.parse(localStorage.getItem('user') ?? '{}'); //get current user from ls
+  const search = location.state?.search || "";
+  const port = Globals.PORT_SERVER;
+  const user = JSON.parse(localStorage.getItem('user') ?? '{}');
 
-  // State variables
-  const [lessonDetails, setLessonDetails] = useState(null); // Details of the lesson
-  const [tasks, setTasks] = useState([]); // List of tasks for the student
-  const [isLoading, setIsLoading] = useState(true); // Still not get the data yet
-  const [selectedTask, setSelectedTask] = useState(null); // Selected task to upload file
+  const [lessonDetails, setLessonDetails] = useState(null);
+  const [tasks, setTasks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
-    // Function to fetch lesson details and tasks from server
     async function getLessonDetailsAndTasks() {
       try {
-        // Fetch lesson details
-        const response = await fetch(`http://localhost:${port}/lessons/${lessonId}`);
+        const response = await fetch(`http://localhost:${port}/lessons/${lessonId}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         if (!response.ok) {
           throw new Error(`Error getting details for lesson with ID ${lessonId}`);
         }
         const lesson = await response.json();
         setLessonDetails(lesson);
 
-        // Fetch tasks for the lesson
-        const tasksResponse = await fetch(`http://localhost:${port}/tasks/withHw?lesson=${lessonId}&user=${user.id}`);
+        const tasksResponse = await fetch(`http://localhost:${port}/tasks/withHw?lesson=${lessonId}&user=${user.id}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         if (!tasksResponse.ok) {
           throw new Error(`Error getting tasks for lesson with ID ${lessonId}`);
         }
         const tasksData = await tasksResponse.json();
+        console.log(tasksData)
         setTasks(tasksData);
       } catch (err) {
         console.log(err);
       } finally {
-        setIsLoading(false); // Set loading to false after fetching data
+        setIsLoading(false);
       }
     }
 
@@ -58,8 +58,7 @@ function LessonDetails() {
             <p><strong>Lesson ID:</strong> {lessonDetails.id}</p>
             <p><strong>Date:</strong> {new Date(lessonDetails.year, lessonDetails.month - 1, lessonDetails.day, lessonDetails.hour).toLocaleString()}</p>
 
-            {/* Display video if video_name is not null */}
-            {lessonDetails.video_name && (
+            {lessonDetails.video_name !== null&& (
               <div>
                 <h3>Lesson Video</h3>
                 <video width="600" controls>
@@ -77,16 +76,14 @@ function LessonDetails() {
                   <a href={`http://localhost:${port}/hw/files/${task.hw_file_name}`} target="_blank" rel="noopener noreferrer">
                     <button className="pdf-button">Open Homework</button>
                   </a>
-                  {task.file_name && (
+                  {task.file_name !== null && (
                     <a href={`http://localhost:${port}/task/files/${task.file_name}`} target="_blank" rel="noopener noreferrer">
                       <button className="task-file-button">Open Your File</button>
                     </a>
                   )}
-                  {task.completed ? (
-                    <button className="complete-task-button" onClick={() => setSelectedTask(task)}>Update Task</button>
-                  ) : (
-                    <button className="complete-task-button" onClick={() => setSelectedTask(task)}>Complete Task</button>
-                  )}
+                  <button className="complete-task-button" onClick={() => setSelectedTask(task)}>
+                    {task.completed ? 'Update Task' : 'Complete Task'}
+                  </button>
                   {task.grade !== null ? (
                     <p>Grade: {task.grade}</p>
                   ) : (
@@ -102,17 +99,16 @@ function LessonDetails() {
         </div>
       )}
 
-      {/* Modal for file upload */}
       {selectedTask && (
         <div className="modal-overlay">
-        <div className="modal-content">
-          <UpdateTaskForm
-            onClose={() =>  setSelectedTask(null)}
-            task = {selectedTask}
-            setTasks = {setTasks}
-          />
+          <div className="modal-content">
+            <UpdateTaskForm
+              onClose={() => setSelectedTask(null)}
+              task={selectedTask}
+              setTasks={setTasks}
+            />
+          </div>
         </div>
-      </div>
       )}
     </div>
   );

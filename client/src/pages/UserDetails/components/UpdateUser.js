@@ -44,6 +44,7 @@ const UpdateUser = ({ user, onUpdate, onClose }) => {
       // Update the user on the server
       const response = await fetch(`http://localhost:${port}/users/${user.id}`, {
         method: 'PUT',
+        credentials: 'include', // Ensures cookies are sent with the request
         body: formDataToSubmit
       });
 

@@ -30,7 +30,7 @@ const lessons=[
       "month": 12, 
       "day": 3,
       "hour": 11,
-      "course_id": 1,
+      "course_id": 2,
       "video_name": 'vector.mp4'
   },
   {
@@ -108,14 +108,24 @@ const createLessonsTable = function(){
       if (err) throw err;
       console.log("Lessons table created");
     });
-    //insert data into lessons table
-    for (let i = 0; i< lessons.length; i++){
-      var sql = `INSERT INTO lessons (id, title, year, month, day, hour, course_id, video_name) VALUES ('${lessons[i].id}','${lessons[i].title}','${lessons[i].year}','${lessons[i].month}','${lessons[i].day}','${lessons[i].hour}','${lessons[i].course_id}', '${lessons[i].video_name}')`;
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log(`${i} record inserted with id: ${result.insertId}`);
+    // Insert data into lessons table
+    lessons.forEach(lesson => {
+      var sql = `INSERT INTO lessons (id, title, year, month, day, hour, course_id, video_name) 
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+      con.query(sql, [
+        lesson.id,
+        lesson.title,
+        lesson.year,
+        lesson.month,
+        lesson.day,
+        lesson.hour,
+        lesson.course_id,
+        lesson.video_name
+      ], function (err, result) {
+        if (err) throw err;
+        console.log(`Record inserted with id: ${result.insertId}`);
+      });
     });
-    }
     //print all data from lessons table
     con.query("SELECT * FROM lessons", function (err, result, fields) {
       if (err) throw err;

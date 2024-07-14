@@ -23,7 +23,6 @@ function UpdateTaskForm({ onClose, task, setTasks }) {
     formData.append('hw_id', task.hw_id);
     formData.append('completed', 1);
     formData.append('grade', task.grade);
-
     try {
       const response = await fetch(`http://localhost:${port}/tasks/${task.id}`, {
         method: 'PUT',
@@ -38,7 +37,7 @@ function UpdateTaskForm({ onClose, task, setTasks }) {
       }
 
       const updatedTask = await response.json();
-      setTasks(tasks => tasks.map(t => (t.id === task.id ? {...t, file_name: updatedTask.file_name} : t))); // Update the task in the state
+      setTasks(tasks => tasks.map(t => (t.id === task.id ? {...t, file_name: updatedTask.file_name, completed: true} : t))); // Update the task in the state
       onClose();
     } catch (err) {
       console.error('Error in handleUpdateTask:', err.message, err.stack);

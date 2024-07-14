@@ -28,7 +28,7 @@ function Registration() {
 
  //save the detailed user in the server
  async function registerUserServer(){ 
-    const response = await fetch(`http://localhost:${port}/register`, {method: 'POST',  headers: {
+    const response = await fetch(`http://localhost:${port}/register`, {method: 'POST', headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }, body: JSON.stringify(values)});

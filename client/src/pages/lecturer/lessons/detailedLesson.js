@@ -22,7 +22,9 @@ function LessonDetails() {
     async function getLessonDetails() {
       try {
         // Fetch lesson details
-        const response = await fetch(`http://localhost:${port}/lessons/${lessonId}`);
+        const response = await fetch(`http://localhost:${port}/lessons/${lessonId}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         if (!response.ok) {
           throw new Error(`Error getting details for lesson with ID ${lessonId}`);
         }
@@ -30,7 +32,9 @@ function LessonDetails() {
         setLessonDetails(lesson);
 
         // Fetch homework details for the lesson
-        const hwResponse = await fetch(`http://localhost:${port}/homeworks?lesson=${lessonId}`);
+        const hwResponse = await fetch(`http://localhost:${port}/homeworks?lesson=${lessonId}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         if (!hwResponse.ok) {
           throw new Error(`Error getting homework for lesson with ID ${lessonId}`);
         }
@@ -64,7 +68,7 @@ function LessonDetails() {
               <p><strong>Date:</strong> {new Date(lessonDetails.year, lessonDetails.month - 1, lessonDetails.day, lessonDetails.hour).toLocaleString()}</p>
               
               {/* Display video if video_name is not null */}
-              {lessonDetails.video_name && (
+              {lessonDetails.video_name!==null && (
                 <div>
                   <h3>Lesson Video</h3>
                   <video width="600" controls>

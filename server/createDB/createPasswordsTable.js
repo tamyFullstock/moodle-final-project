@@ -35,8 +35,12 @@ const createPasswordsTable = async function () {
     // Insert data into passwords table
     for (let i = 0; i < passwords.length; i++) {
       const hashedPassword = await bcrypt.hash(passwords[i].password, saltRounds);
-      var sql = `INSERT INTO passwords (username, password, status) VALUES ('${passwords[i].username}', '${hashedPassword}', '${passwords[i].status}')`;
-      con.query(sql, function (err, result) {
+      var sql = `INSERT INTO passwords (username, password, status) VALUES (?, ?, ?)`;
+      con.query(sql, [
+        passwords[i].username,
+        hashedPassword,
+        passwords[i].status
+      ], function (err, result) {
         if (err) throw err;
         console.log(`${i} record inserted with id: ${result.insertId}`);
       });

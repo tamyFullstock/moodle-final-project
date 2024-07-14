@@ -25,6 +25,7 @@ function UpdateHwForm({ onClose, hwToUpdate, setHomework }) {
       const response = await fetch(`http://localhost:${port}/homeworks/${homeworkId}`, {
         method: 'PUT',
         body: formData,
+        credentials: 'include', // Ensures cookies are sent with the request
       });
 
       if (!response.ok) {

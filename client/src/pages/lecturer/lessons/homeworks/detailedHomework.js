@@ -22,7 +22,9 @@ function DetailsHw() {
   useEffect(() => {
     async function getHomeworkDetails() {
       try {
-        const response = await fetch(`http://localhost:${port}/homeworks/${homeworkId}`);
+        const response = await fetch(`http://localhost:${port}/homeworks/${homeworkId}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         if (!response.ok) {
           throw new Error(`Error getting details for homework with ID ${homeworkId}`);
         }
@@ -47,7 +49,9 @@ function DetailsHw() {
   useEffect(() => {
     async function getStudents() {
       try {
-        const tasksResponse = await fetch(`http://localhost:${port}/tasks?homework=${homeworkId}`);
+        const tasksResponse = await fetch(`http://localhost:${port}/tasks?homework=${homeworkId}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         if (!tasksResponse.ok) {
           throw new Error('Error getting homework tasks');
         }
@@ -56,7 +60,9 @@ function DetailsHw() {
 
         // Fetch student details for each student ID. Make a list of objects with usernames and id
         const studentDetailsPromises = hwTasks.map(t =>
-          fetch(`http://localhost:${port}/users/${t.student_id}`).then(response => response.json())
+          fetch(`http://localhost:${port}/users/${t.student_id}`,{
+            credentials: 'include', // Ensures cookies are sent with the request
+          }).then(response => response.json())
           .then(data => ({
             id: data.id,  // id of student
             taskId: t.id,  // id of his task
@@ -79,7 +85,10 @@ function DetailsHw() {
   // Delete the hw
   async function deleteHw() {
     try {
-      const response = await fetch(`http://localhost:${port}/homeworks/${homeworkId}`, { method: 'DELETE' });
+      const response = await fetch(`http://localhost:${port}/homeworks/${homeworkId}`, {
+         method: 'DELETE',
+         credentials: 'include', // Ensures cookies are sent with the request
+         });
       if (!response.ok) {
         throw new Error(`Error while trying to delete homework with ID ${homeworkId}`);
       }
@@ -99,6 +108,7 @@ function DetailsHw() {
     try {
       const response = await fetch(`http://localhost:${port}/tasks/${taskId}`, {
         method: 'PUT',
+        credentials: 'include', // Ensures cookies are sent with the request
         headers: {
           'Content-Type': 'application/json',
         },
@@ -157,7 +167,7 @@ function DetailsHw() {
               <div className="completion-rate-pContainer">
                   <HwCompletionGraph StudentsTasksList = {students}/>
               </div>
-              {(homework.file_name && hwFileUrl) && (
+              {(homework.file_name!==null && hwFileUrl) && (
                 <a href={hwFileUrl} download target="_blank" rel="noopener noreferrer">
                   <button className="pdf-button">Hw file</button>
                 </a>

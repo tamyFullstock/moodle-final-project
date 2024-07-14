@@ -3,7 +3,7 @@ import Globals from '../../../../Globals.js';
 import { useSearchParams } from 'react-router-dom';
 import '../../../../style/pages/lecturer/courses/coursesHeader.css';
 
-function TasksHeader() {
+function TasksHeader({setHasMore}) {
   const [course, setCourse] = useState(''); // course to filter by the tasks
   const [searchParams, setSearchParams] = useSearchParams();
   const user = JSON.parse(localStorage.getItem('user') ?? '{}'); // get current user from localStorage
@@ -17,13 +17,16 @@ function TasksHeader() {
     searchParams.set("course", newCourse);
     searchParams.set("page", 1);
     setSearchParams(searchParams);
+    setHasMore(true);
   };
 
   // get all the courses student is enrolled in
   useEffect(() => {
     async function getCourses() {
       try {
-        const response = await fetch(`http://localhost:${port}/coursesP/studentCourses/${user.id}`);
+        const response = await fetch(`http://localhost:${port}/coursesP/studentCourses/${user.id}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         let newList = await response.json();
         if (!response.ok) {
           throw new Error(`Error getting courses of student with ID ${user.id}`);

@@ -22,6 +22,7 @@ function NewStudentForm({ onClose, onAddStudent }) {
     try {
       const response = await fetch(`http://localhost:${port}/coursesP`, {
         method: 'POST',
+        credentials: 'include', // Ensures cookies are sent with the request
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'

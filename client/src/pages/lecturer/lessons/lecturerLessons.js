@@ -22,7 +22,9 @@ function LecturerLessons() {
   useEffect(() => {
     async function getLessons() {
       try {
-        const response = await fetch(`http://localhost:${port}/lessons?course=${courseId}&year=${year}`);
+        const response = await fetch(`http://localhost:${port}/lessons?course=${courseId}&year=${year}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         let newList = await response.json();
         if (!response.ok) {
           throw new Error(`error getting lessons for course with ID ${courseId}`);

@@ -24,7 +24,9 @@ const DetailedUser = () => {
         setIsLoading(false);
       } else {
         try {
-          const response = await fetch(`http://localhost:${port}/users/${studentId}`);
+          const response = await fetch(`http://localhost:${port}/users/${studentId}`,{
+            credentials: 'include', // Ensures cookies are sent with the request
+          });
           if (!response.ok) {
             throw new Error(`Error getting details of user with ID ${studentId}`);
           }
@@ -63,7 +65,7 @@ const DetailedUser = () => {
         <div className="user-details-container">
           <h2>User Details</h2>
           <div className="user-details">
-            {user.photo && (
+            {user.photo!==null && (
               <div className="user-photo-container">
                 <img src={`http://localhost:${port}/user/photos/${user.photo}`} alt="User Photo" className="user-photo" />
               </div>

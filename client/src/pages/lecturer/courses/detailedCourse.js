@@ -11,7 +11,7 @@ function CourseDetails() {
   const { courseId } = useParams(); // Extract courseId from the URL
   const location = useLocation();
   const search = location.state?.search || ""; //use it to maintain params between pages
-  const port = Globals.PORT_SERVER; // Port of the server
+  const port = Globals.PORT_SERVER; // Port of the server  
   const [courseDetails, setCourseDetails] = useState(null); // Details of the course
   const [studentsList, setStudentsList] = useState([]); // List of students
   const [isLoading, setIsLoading] = useState(true); // Still not get the data yet
@@ -22,7 +22,9 @@ function CourseDetails() {
       //get the current course from server with its students
       try {
         //get details of current course
-        const response = await fetch(`http://localhost:${port}/courses/${courseId}`);
+        const response = await fetch(`http://localhost:${port}/courses/${courseId}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         const course = await response.json();
         if (!response.ok) {
           throw new Error(`Error getting details for course with ID ${courseId}`);
@@ -30,7 +32,9 @@ function CourseDetails() {
         setCourseDetails(course);
 
         //get all students of current course - now as objects of a course id, with student id,
-        const csPResponse = await fetch(`http://localhost:${port}/coursesP?course=${courseId}`);
+        const csPResponse = await fetch(`http://localhost:${port}/coursesP?course=${courseId}`,{
+          credentials: 'include', // Ensures cookies are sent with the request
+        });
         if (!csPResponse.ok) {
           throw new Error(`Error getting students for course with ID ${courseId}`);
         }
@@ -39,7 +43,9 @@ function CourseDetails() {
 
         // Fetch student details for each student ID. make a list of objects with usernames and id
         const studentDetailsPromises = studentsIdList.map(studentId =>
-          fetch(`http://localhost:${port}/users/${studentId}`).then(response => response.json())
+          fetch(`http://localhost:${port}/users/${studentId}`,{
+            credentials: 'include', // Ensures cookies are sent with the request
+          }).then(response => response.json())
           .then(data=>{
             return {id: studentId,
                     student_name: `${data.first_name} ${data.last_name}`}})
@@ -60,14 +66,20 @@ function CourseDetails() {
   async function deleteStudent(stId) {
     try {
       //get the id of object courseParticipant of the course and studnet
-      const response = await fetch(`http://localhost:8080/coursesP?course=${courseId}&student=${stId}`, {method: 'GET'});
+      const response = await fetch(`http://localhost:8080/coursesP?course=${courseId}&student=${stId}`, {
+        credentials: 'include', // Ensures cookies are sent with the request
+        method: 'GET'
+      });
       if (!response.ok) {
         throw new Error(`Error while trying remove student with ID ${stId} from course with ID ${courseId}`);
       }
       const coursePData = await response.json();  
       const coursePId = coursePData[0].id;
       //delete the courseParticipant object from server
-      const delResponse = await fetch(`http://localhost:8080/coursesP/${coursePId}`, {method: 'DELETE'});
+      const delResponse = await fetch(`http://localhost:8080/coursesP/${coursePId}`, {
+        method: 'DELETE',
+        credentials: 'include', // Ensures cookies are sent with the request
+      });
       if (!delResponse.ok) {
         throw new Error(`Error while trying remove student with ID ${stId} from course with ID ${courseId}`);
       }

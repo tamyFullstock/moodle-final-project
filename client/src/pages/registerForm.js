@@ -27,7 +27,9 @@ function RegisterForm() {
 
   //save the detailed user in the server
   async function saveUserServer(){  
-      const response = await fetch(`http://localhost:${port}/users/${user.id}`, {method: 'PUT',  headers: {
+      const response = await fetch(`http://localhost:${port}/users/${user.id}`, {method: 'PUT',
+        credentials: 'include', // Ensures cookies are sent with the request
+        headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       }, body: JSON.stringify({...user, status:1})});

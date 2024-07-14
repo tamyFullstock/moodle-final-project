@@ -17,6 +17,7 @@ import registerRoute from './app/routes/authentication/register.route.js';
 import loginRoute from './app/routes/authentication/login.route.js';
 import logoutRoute from './app/routes/authentication/logout.route.js';
 import coursePRoute from './app/routes/courseP.routes.js';
+import { convertNullStringsToNull } from './app/middleware/nullConvert.js';
 
 import { verifyUser } from './app/middleware/verifyUser.js'; // Import verifyUser middleware
 
@@ -74,6 +75,19 @@ app.use((req, res, next) => {
   }
 });
 
+// Apply convertNullStringsToNull middleware globally
+app.use(convertNullStringsToNull);
+
+// Apply verifyUser middleware globally, excluding /register and /login routes, check user cookies
+app.use((req, res, next) => {
+  if (req.originalUrl === '/register' || req.originalUrl === '/login') {
+    // Skip verifyUser middleware for /register and /login routes
+    next();
+  } else {
+    verifyUser(req, res, next);
+  }
+});
+
 // Route definitions
 userRoutes(app);
 courseRoute(app);
@@ -91,7 +105,7 @@ logoutRoute(app);
 // the basic route that returns the user from the verified token/cookie
 //if user does not have correct cookie it return status of error. 
 //if it verify the use cookie, it return the client the user of the cookie
-app.get('/', verifyUser, (req, res) => {
+app.get('/', (req, res) => {
   return res.json(req.user);
 });
 
