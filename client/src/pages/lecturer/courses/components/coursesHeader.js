@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Globals from '../../../../Globals.js';
 import { useSearchParams } from 'react-router-dom';
-import '../../../../style/pages/lecturer/courses/coursesHeader.css';
+import '../../../../style/pages/items/itemsHeader.css';
 
 function CoursesHeader({ setShowNewCourseForm }) {
   const [semester, setSemester] = useState(''); // semester to filter by the courses 

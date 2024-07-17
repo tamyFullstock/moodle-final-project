@@ -60,6 +60,7 @@ const UpdateUser = ({ user, onUpdate, onClose }) => {
 
       // Succeeded to update the user - save him (also in local storage by the parent)
       const updatedUser = await response.json();
+      console.log(updatedUser)
       onUpdate(updatedUser);
       onClose();
     } catch (error) {

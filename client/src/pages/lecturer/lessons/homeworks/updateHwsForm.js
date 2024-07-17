@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Globals from '../../../../Globals.js';
 import { useParams } from 'react-router-dom';
-import '../../../../style/pages/lecturer/courses/newCourseForm.css';
+import '../../../../style/pages/items/newItemForm.css';
 import showErrorMessage from '../../../../helpers/alertMessage.js';
 
 function UpdateHwForm({ onClose, hwToUpdate, setHomework }) {

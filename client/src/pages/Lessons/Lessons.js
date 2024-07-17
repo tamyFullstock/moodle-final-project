@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import Globals from '../../../Globals.js';
+import Globals from '../../Globals.js';
 import { useSearchParams,useParams, useLocation, Link } from 'react-router-dom';
-import '../../../style/pages/lecturer/courses/courses.css';
+import '../../style/pages/items/items.css';
 import LessonsHeader from './components/LessonsHeader.js';
 import NewLessonForm from './components/newLessonsForm.js';
 
-function LecturerLessons() {
+function Lessons() {
 
   const { courseId } = useParams(); // Extract courseId the lessons belongs to from the URL
   const location = useLocation(); // Current location
@@ -61,7 +61,7 @@ function LecturerLessons() {
   return (
     <div>
       {/*component with fields for making a new lesson*/}
-      <LessonsHeader setShowNewLessonForm={() => setShowNewLessonForm(true)}/>
+      <LessonsHeader setShowNewLessonForm={() => setShowNewLessonForm(true)} />
       <h2>Lessons for Course {courseId}</h2>
       {isLoading ? (
         <p>Loading...</p>
@@ -94,4 +94,4 @@ function LecturerLessons() {
     </div>
   )};
 
-export default LecturerLessons;
+export default Lessons;

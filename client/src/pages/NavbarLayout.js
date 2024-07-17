@@ -1,8 +1,8 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
-import Navbar from '../Home/Navbar'
+import Navbar from './Home/Navbar'
 
-function LecturerLayout() {
+function NavbarLayout() {
   return (
     <div>
       <Navbar isAuthenticated={true}/>
@@ -11,4 +11,4 @@ function LecturerLayout() {
   )
 }
 
-export default LecturerLayout
+export default NavbarLayout

@@ -3,7 +3,6 @@ import '../style/pages/registerForm.css'
 import { useSetAuth } from '../helpers/ThemeProvider';
 import { useNavigate } from 'react-router-dom';
 import 'rsuite/dist/rsuite.min.css';
-import { toaster, Notification } from 'rsuite';
 import showErrorMessage from '../helpers/alertMessage';
 import Globals from '../Globals';
 
@@ -48,7 +47,7 @@ function RegisterForm() {
     e.preventDefault();
     try{
         await saveUserServer(); //save the user in the server
-        localStorage.setItem("user", JSON.stringify(user)); //save the detailed user in local storage
+        localStorage.setItem("user", JSON.stringify({...user, status:1})); //save the detailed user in local storage
         navigate("/");
     }
     //error in saving user details

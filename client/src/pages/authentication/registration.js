@@ -3,7 +3,6 @@ import '../../style/pages/authentication/registration.css'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import Globals from '../../Globals.js';
-import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import showErrorMessage from '../../helpers/alertMessage.js';
 

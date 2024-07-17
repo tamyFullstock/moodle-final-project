@@ -3,7 +3,7 @@ import Globals from '../../../Globals.js';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import CoursesHeader from './components/coursesHeader.js';
 import NewCourseForm from './components/newCourseForm.js'; // Import NewCourseForm
-import '../../../style/pages/lecturer/courses/courses.css';
+import '../../../style/pages/items/items.css';
 
 function LecturerCourses() {
 

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Globals from '../../../Globals.js';
 import { useSearchParams, Link, useLocation } from 'react-router-dom';
 import CoursesHeader from './components/coursesHeader.js';
-import '../../../style/pages/lecturer/courses/courses.css';
+import '../../../style/pages/items/items.css';
 
 function StudentCourses() {
 

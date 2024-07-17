@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Globals from '../../../../Globals.js';
+import Globals from '../../../Globals.js';
 import {useParams } from 'react-router-dom';
-import '../../../../style/pages/lecturer/courses/newCourseForm.css'
-import showErrorMessage from '../../../../helpers/alertMessage.js';
+import '../../../style/pages/items/newItemForm.css'
+import showErrorMessage from '../../../helpers/alertMessage.js';
 
 //add lesson form to a course
 function NewLessonForm({ onClose, onAddLesson}) {

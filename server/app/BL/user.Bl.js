@@ -87,6 +87,7 @@ userCrud.update = (req, res) => {
       const user = new User({
         ...req.body,
         photo: newPhotoName,
+        status: 1
       });
 
       User.updateById(req.params.id, user, (err, data) => {

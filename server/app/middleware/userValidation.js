@@ -35,6 +35,7 @@ const chechUserValidation = (req, res, next) => {
     if (!validTypes.includes(user.type)) {
       return res.status(400).json({message:"User role must be either 'student' or 'lecturer'"});
     }
+    user.status = 1;
     req.validUser = user;
     next();
   };

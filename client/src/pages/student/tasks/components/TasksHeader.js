@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Globals from '../../../../Globals.js';
 import { useSearchParams } from 'react-router-dom';
-import '../../../../style/pages/lecturer/courses/coursesHeader.css';
+import '../../../../style/pages/items/itemsHeader.css';
 
 function TasksHeader({setHasMore}) {
   const [course, setCourse] = useState(''); // course to filter by the tasks

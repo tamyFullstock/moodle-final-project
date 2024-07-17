@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Globals from '../../../../Globals.js';
-import '../../../../style/pages/lecturer/courses/newCourseForm.css'
+import '../../../../style/pages/items/newItemForm.css'
 import showErrorMessage from '../../../../helpers/alertMessage.js';
 
 //make a new course form component

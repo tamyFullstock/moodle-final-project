@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Globals from '../../../../Globals.js';
-import '../../../../style/pages/lecturer/courses/newCourseForm.css';
+import '../../../../style/pages/items/newItemForm.css';
 
 function UpdateTaskForm({ onClose, task, setTasks }) {
   const port = Globals.PORT_SERVER;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import Globals from '../../../../Globals.js';
+import Globals from '../../../Globals.js';
 import { useSearchParams, NavLink, useLocation } from 'react-router-dom';
-import '../../../../style/pages/lecturer/courses/coursesHeader.css';
+import '../../../style/pages/items/itemsHeader.css';
 
 function LessonsHeader({ setShowNewLessonForm }) {
   const user = JSON.parse(localStorage.getItem('user' ?? '{}')); // Get current user from localStorage
@@ -40,9 +40,9 @@ function LessonsHeader({ setShowNewLessonForm }) {
           </NavLink>
         </button>
       </div>
-      <div className="new-lesson-button">
+      {user.type === "lecturer" && <div className="new-lesson-button">
         <button onClick={() => setShowNewLessonForm(true)}>New Lesson</button>
-      </div>
+      </div>}
     </div>
   );
 }

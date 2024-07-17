@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation, useNavigate } from 'react-router-dom';
 import Globals from '../../../Globals.js';
-import '../../../style/pages/lecturer/detailedCard.css'
+import '../../../style/pages/detailedCard.css'
 import NewStudentForm from './components/newCoursePForm.js';
 
 //show the course details and its students

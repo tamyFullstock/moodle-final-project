@@ -1,6 +1,5 @@
 // TaskList.js
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useNavigate, searchParams, useSearchParams } from 'react-router-dom';
 import '../../../style/pages/student/tasks.css'
 import Globals from '../../../Globals';

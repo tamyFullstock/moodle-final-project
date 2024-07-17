@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Globals from '../../../../Globals.js';
 import { useParams } from 'react-router-dom';
-import '../../../../style/pages/lecturer/courses/newCourseForm.css';
+import '../../../../style/pages/items/newItemForm.css';
 import showErrorMessage from '../../../../helpers/alertMessage.js';
 
 function NewHwForm({ onClose, onAddHw }) {

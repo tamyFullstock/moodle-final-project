@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation, Link } from 'react-router-dom';
 import Globals from '../../../Globals.js';
-import '../../../style/pages/lecturer/detailedCard.css';
+import '../../../style/pages/detailedCard.css';
 import UpdateTaskForm from './homeworks/updateTaskForm.js';
 
 function LessonDetails() {

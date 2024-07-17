@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
 import Globals from '../../../Globals.js';
-import '../../../style/pages/lecturer/detailedCard.css';
+import '../../../style/pages/detailedCard.css';
 import NewHwForm from './homeworks/newHwsForm.js';
 
 // Component to show lesson details with its homework
-function LessonDetails() {
+function LecturerDetailedLesson() {
   const { lessonId } = useParams(); // Extract lessonId from the URL
   const location = useLocation();
   const search = location.state?.search || ""; // Use it to maintain params between pages
@@ -111,4 +111,4 @@ function LessonDetails() {
   );
 }
 
-export default LessonDetails;
+export default LecturerDetailedLesson;
