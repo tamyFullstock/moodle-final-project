@@ -129,3 +129,59 @@
 .buttons button:last-child:hover {
   background-color: #d32f2f;
 }
+
+@media (max-width: 1024px) and (max-height: 1366px) {
+  .user-details-container {
+    padding: 10px;
+  }
+
+  .user-details {
+    width: 600px;
+    padding: 15px;
+  }
+
+  .user-photo {
+    width: 200px;
+    height: 200px;
+  }
+
+  .user-details p {
+    margin: 8px 0;
+    font-size: 2em;
+  }
+
+  .user-details-container h2{
+    margin-top: 20px;
+    font-size: 3em;
+    margin-bottom: 60px;
+  }
+
+  .user-details .update-button-container button {
+    padding: 16px 32px;
+  }
+
+  .modal-content-user {
+    width: 400px;
+    padding: 30px;
+  }
+
+  .modal-content-user h2 {
+    font-size: 2.4em;
+    margin-bottom: 30x;
+  }
+
+  .modal-content-user label {
+    font-size: 1.8em;
+  }
+
+  .modal-content-user input {
+    padding: 12px;
+    margin-bottom: 20px;
+  }
+
+  .buttons button {
+    margin-top: 10px;
+    padding: 16px 32px;
+    font-size: 1.8em;
+  }
+}

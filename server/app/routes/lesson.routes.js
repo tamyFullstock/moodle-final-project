@@ -1,4 +1,5 @@
 import lessons from '../BL/lesson.Bl.js'
+import { isLecturerValidation } from '../middleware/isLecturerValidation.js';
 import express from 'express';
 import { chechLessonValidation } from '../middleware/lessonValidation.js';
 import FileUpload from '../middleware/upload/fileUpload.js'
@@ -10,7 +11,7 @@ const lessonRoute = app => {
   const router = express.Router();
 
   // Create a new user
-  router.post("/",  uploadMiddleware , chechLessonValidation, lessons.create);
+  router.post("/",  uploadMiddleware ,isLecturerValidation, chechLessonValidation, lessons.create);
 
   // Retrieve all users
   router.get("/", lessons.findAll);
@@ -19,13 +20,13 @@ const lessonRoute = app => {
   router.get("/:id", lessons.findOne);
 
   // Update a user with id
-  router.put("/:id",  uploadMiddleware ,chechLessonValidation, lessons.update);
+  router.put("/:id",  uploadMiddleware , isLecturerValidation, chechLessonValidation, lessons.update);
 
   // Delete a user with id
-  router.delete("/:id", lessons.delete);
+  router.delete("/:id",isLecturerValidation, lessons.delete);
 
   // Delete all users
-  router.delete("/", lessons.deleteAll);
+  router.delete("/",isLecturerValidation, lessons.deleteAll);
 
   app.use('/lessons', router);
 };

@@ -46,31 +46,28 @@ function LecturerCourses() {
 
   return (
     <div>
-      {/*component with fields for making a new user*/}
-      <CoursesHeader setShowNewCourseForm={() => setShowNewCourseForm(true)} />
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="items-container">
+      <CoursesHeader setShowNewCourseForm={() => setShowNewCourseForm(true)} /> {/* Header for courses page */}
+      {!isLoading && ( // Render only if not loading
+        coursesList.length > 0 ? ( // Render items-container if coursesList has items
+          <div className="items-container">
             {!showNewCourseForm && coursesList.map(course => (
               <div key={course.id} className="item-card">
-                <h3>{course.subject}</h3>
-                <p>Course ID: {course.id}<br/>Semester: {course.semester}</p>
+                <h3>{course.subject}</h3> {/* Display course subject */}
+                <p>Course ID: {course.id}<br />Semester: {course.semester}</p> {/* Display course ID and semester */}
                 <div className='links-container'>
-                  {/*direct to all lessons of single course */}
-                  <Link to={`./${course.id}/lessons`} state = {{search: searchParams.toString()}}>
+                  {/* Link to view lessons of the course */}
+                  <Link to={`./${course.id}/lessons`} state={{ search: searchParams.toString() }}>
                     <button>View Lessons</button>
                   </Link>
-                  {/*direct to all students of single course */}
-                  <Link to={`./${course.id}/students`} state = {{search: searchParams.toString()}}>
+                  {/* Link to view students of the course */}
+                  <Link to={`./${course.id}/students`} state={{ search: searchParams.toString() }}>
                     <button>View Students</button>
                   </Link>
                 </div>
               </div>
             ))}
-            {/*component with fields for making a new user
-             - be shown up to showNewCourseForm switched by button in CoursesHeader*/}
-           {showNewCourseForm &&
+            {/* Component with fields for making a new course, shown based on showNewCourseForm state */}
+            {showNewCourseForm && (
               <div className="modal-overlay">
                 <div className="modal-content">
                   <NewCourseForm
@@ -79,9 +76,13 @@ function LecturerCourses() {
                   />
                 </div>
               </div>
-            }
-        </div>
+            )}
+          </div>
+        ) : (
+          <p>No courses found.</p> // Render if coursesList is empty
+        )
       )}
+      {isLoading && <p>Loading...</p>} {/* Loading message while fetching courses */}
     </div>
   );
 }

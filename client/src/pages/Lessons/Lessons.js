@@ -3,7 +3,7 @@ import Globals from '../../Globals.js';
 import { useSearchParams,useParams, useLocation, Link } from 'react-router-dom';
 import '../../style/pages/items/items.css';
 import LessonsHeader from './components/LessonsHeader.js';
-import NewLessonForm from './components/newLessonsForm.js';
+import NewLessonForm from './components/NewLessonForm.js';
 
 function Lessons() {
 
@@ -60,38 +60,41 @@ function Lessons() {
 
   return (
     <div>
-      {/*component with fields for making a new lesson*/}
-      <LessonsHeader setShowNewLessonForm={() => setShowNewLessonForm(true)} />
-      <h2>Lessons for Course {courseId}</h2>
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="items-container">
+    <LessonsHeader setShowNewLessonForm={() => setShowNewLessonForm(true)} />
+    <h2>Lessons for Course {courseId}</h2>
+    {isLoading ? (
+      <p>Loading...</p>
+    ) : (
+      <>
+        {lessonsList.length > 0 ? (
+          <div className="items-container">
             {!showNewLessonForm && lessonsList.map(lesson => (
-            <div key={lesson.id} className="item-card">
-              <h3>{lesson.title}</h3>
-              <p>Lesson ID: {lesson.id}</p>
-              <p>Date: {lesson.Date}</p>
-              <Link to={`./${lesson.id}`} state = {{search: searchParams.toString()}}>
-                <button>View Details</button>
-              </Link>
-            </div>
-          ))}
-            {/*component with fields for making a new lesson
-             - be shown up to showNewLessonForm switched by button in LessonsHeader*/}
-           {showNewLessonForm &&
-              <div className="modal-overlay">
-                <div className="modal-content">
-                  <NewLessonForm
-                    onClose={() => setShowNewLessonForm(false)}
-                    onAddLesson={handleAddLesson}
-                  />
-                </div>
+              <div key={lesson.id} className="item-card">
+                <h3>{lesson.title}</h3>
+                <p>Lesson ID: {lesson.id}</p>
+                <p>Date: {lesson.Date}</p>
+                <Link to={`./${lesson.id}`} state={{ search: searchParams.toString() }}>
+                  <button>View Details</button>
+                </Link>
               </div>
-            }
-        </div>
-      )}
-    </div>
+            ))}
+          </div>
+        ) : (
+          <p>No lessons found.</p>
+        )}
+        {showNewLessonForm &&
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <NewLessonForm
+                onClose={() => setShowNewLessonForm(false)}
+                onAddLesson={handleAddLesson}
+              />
+            </div>
+          </div>
+        }
+      </>
+    )}
+  </div>
   )};
 
 export default Lessons;

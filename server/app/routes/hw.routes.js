@@ -1,4 +1,5 @@
 import hws from '../BL/hw.Bl.js'
+import { isLecturerValidation } from '../middleware/isLecturerValidation.js';
 import express from 'express';
 import FileUpload from '../middleware/upload/fileUpload.js'
 
@@ -9,7 +10,7 @@ const hwRoute = app => {
   const router = express.Router();
   
   // Create a new user
-  router.post("/", uploadMiddleware , hws.create);
+  router.post("/", uploadMiddleware ,isLecturerValidation, hws.create);
 
   // Retrieve all users
   router.get("/", hws.findAll);
@@ -18,7 +19,7 @@ const hwRoute = app => {
   router.get("/:id", hws.findOne);
 
   // Update a user with id
-  router.put("/:id", uploadMiddleware , hws.update);
+  router.put("/:id", uploadMiddleware ,isLecturerValidation,  hws.update);
 
   // Delete a user with id
   router.delete("/:id", hws.delete);

@@ -1,4 +1,5 @@
 import courses from '../BL/course.Bl.js'
+import { isLecturerValidation } from '../middleware/isLecturerValidation.js';
 import express from 'express';
 
 const courseRoute = app => {
@@ -6,7 +7,7 @@ const courseRoute = app => {
   const router = express.Router();
 
   // Create a new user
-  router.post("/", courses.create);
+  router.post("/",isLecturerValidation, courses.create);
 
   // Retrieve all users
   router.get("/", courses.findAll);
@@ -15,7 +16,7 @@ const courseRoute = app => {
   router.get("/:id", courses.findOne);
 
   // Update a user with id
-  router.put("/:id", courses.update);
+  router.put("/:id", isLecturerValidation, courses.update);
 
   // Delete a user with id
   router.delete("/:id", courses.delete);

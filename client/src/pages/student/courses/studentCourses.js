@@ -42,7 +42,7 @@ function StudentCourses() {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <div className="items-container">
+        (coursesList.length>0) && <div className="items-container">
             {coursesList.map(course => (
               <div key={course.id} className="item-card">
                 <h3>{course.subject}</h3>

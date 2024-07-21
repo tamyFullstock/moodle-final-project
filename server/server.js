@@ -7,7 +7,6 @@ import multer from 'multer'
 
 import userRoutes from './app/routes/user.routes.js';
 import courseRoute from './app/routes/course.routes.js';
-import photoRoute from './app/routes/photo.routes.js';
 import lessonRoute from './app/routes/lesson.routes.js';
 import hwRoute from './app/routes/hw.routes.js';
 import taskRoute from './app/routes/task.routes.js';
@@ -80,7 +79,7 @@ app.use(convertNullStringsToNull);
 
 // Apply verifyUser middleware globally, excluding /register and /login routes, check user cookies
 app.use((req, res, next) => {
-  if (req.originalUrl === '/register' || req.originalUrl === '/login') {
+  if (req.originalUrl === '/register' || req.originalUrl === '/login' || req.originalUrl === '/initialization') {
     // Skip verifyUser middleware for /register and /login routes
     next();
   } else {
@@ -92,7 +91,6 @@ app.use((req, res, next) => {
 userRoutes(app);
 courseRoute(app);
 coursePRoute(app);
-photoRoute(app);
 lessonRoute(app);
 hwRoute(app);
 taskRoute(app);
