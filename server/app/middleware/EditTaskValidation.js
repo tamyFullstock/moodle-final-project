@@ -4,13 +4,10 @@ import Task from "../DL/task.dl.js";
 //check the user change only fields he can change according to its role
 //only lecturer can add a grade
 const EditTaskValidation = (req, res, next) => {
-  if(req.body.grade == "null"){
+  const taskId = req.params.id;  //id of task to edit
+  if (req.body.grade=="null"){
     req.body.grade = null;
   }
-  if(req.body.file_name == "null"){
-    req.body.file_name = null;
-  }
-  const taskId = req.params.id;  //id of task to edit
   //find the old task we want to update. to check if grade is been changed
   //if the task has been changed- check the user is a lecturer
   Task.findById(req.params.id, (err, data) => { 
@@ -32,6 +29,8 @@ const EditTaskValidation = (req, res, next) => {
           next();
         }
         else{
+          console.log(req.body.grade);
+          console.log(oldTask.grade);
           return res.status(403).json({message: "forbidden action for not lecturer user"}) //403 is forbidden status
         }
       }

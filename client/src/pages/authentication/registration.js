@@ -39,9 +39,7 @@ function Registration() {
       }
       throw new Error("error while trying signing user, please try again");
     }
-    /*const newUser = await response.json();
-    console.log(newUser);
-    localStorage.setItem("user", JSON.stringify(newUser));*/
+    
 }
 
 async function handleSubmit(e){ //submit the user

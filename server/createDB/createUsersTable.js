@@ -11,7 +11,7 @@ const users = [
     "address": "Rishon Lezzion Rotchild 67",
     "phone": 547865011,
     "type": "lecturer",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport.png',
     "status": 1
   },
   {
@@ -23,7 +23,7 @@ const users = [
     "address": "Tel Aviv Jhonson 3",
     "phone": 549776453,
     "type": "student",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport1.png',
     "status": 1
   },
   {
@@ -35,7 +35,7 @@ const users = [
     "address": "Jerusalem David 98",
     "phone": 525561986,
     "type": "student",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport2.png',
     "status": 1
   },
   {
@@ -47,7 +47,7 @@ const users = [
     "address": "Haifa Herzl 10",
     "phone": 542365011,
     "type": "lecturer",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport3.png',
     "status": 1
   },
   {
@@ -59,7 +59,7 @@ const users = [
     "address": "Ashdod Ben Gurion 5",
     "phone": 545776453,
     "type": "student",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport4.png',
     "status": 1
   },
   {
@@ -71,7 +71,7 @@ const users = [
     "address": "Beersheba Negev 21",
     "phone": 526561986,
     "type": "student",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport5.png',
     "status": 1
   },
   {
@@ -83,7 +83,7 @@ const users = [
     "address": "Eilat Red Sea 15",
     "phone": 547765011,
     "type": "student",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport6.png',
     "status": 1
   },
   {
@@ -95,7 +95,7 @@ const users = [
     "address": "Netanya Kikar 7",
     "phone": 549876453,
     "type": "student",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport7.png',
     "status": 1
   },
   {
@@ -107,7 +107,7 @@ const users = [
     "address": "Holon Sokolov 22",
     "phone": 525661986,
     "type": "student",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport8.png',
     "status": 1
   },
   {
@@ -119,7 +119,7 @@ const users = [
     "address": "Rehovot Weizmann 3",
     "phone": 547854011,
     "type": "lecturer",
-    "photo": 'userPhoto_1719093106692.png',
+    "photo": 'passport9.png',
     "status": 1
   }
 ];

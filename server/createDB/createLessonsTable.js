@@ -21,7 +21,7 @@ const lessons=[
         "day": 5,
         "hour": 9,
         "course_id": 1,
-        "video_name": 'vector.mp4'
+        "video_name": 'vector1.mp4'
   },
   {
       "id": 3,
@@ -31,7 +31,7 @@ const lessons=[
       "day": 3,
       "hour": 11,
       "course_id": 2,
-      "video_name": 'vector.mp4'
+      "video_name": 'vector2.mp4'
   },
   {
     "id": 4,
@@ -41,7 +41,7 @@ const lessons=[
     "day": 1,
     "hour": 15,
     "course_id": 1,
-    "video_name": 'vector.mp4'
+    "video_name": 'vector3.mp4'
 },
 {
     "id": 5,
@@ -51,7 +51,7 @@ const lessons=[
     "day": 5,
     "hour": 9,
     "course_id": 1,
-    "video_name": 'vector.mp4'
+    "video_name": 'vector4.mp4'
 },
 {
   "id": 6,
@@ -61,7 +61,7 @@ const lessons=[
   "day": 3,
   "hour": 11,
   "course_id": 1,
-  "video_name": 'vector.mp4'
+  "video_name": 'vector5.mp4'
 },
 {
   "id": 7,
@@ -71,7 +71,7 @@ const lessons=[
   "day": 3,
   "hour": 8,
   "course_id": 1,
-  "video_name": 'vector.mp4'
+  "video_name": 'vector6.mp4'
 },
 {
   "id": 8,
@@ -81,7 +81,7 @@ const lessons=[
   "day": 3,
   "hour": 11,
   "course_id": 1,
-  "video_name": 'vector.mp4'
+  "video_name": 'vector7.mp4'
 }
    
 ];

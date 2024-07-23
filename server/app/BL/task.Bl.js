@@ -4,8 +4,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 
 // Get the equivalent of __dirname for ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __filename = fileURLToPath(import.meta.url);  //file path to this current file
+const __dirname = path.dirname(__filename);  //directory name of current file
 
 // Task CRUD object
 const taskCrud = {};

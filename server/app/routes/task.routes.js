@@ -28,7 +28,7 @@ const taskRoute = app => {
   router.get("/:id", tasks.findOne);
 
   // Update a user with id
-  router.put("/:id", uploadMiddleware, verifyUser, EditTaskValidation, tasks.update);
+  router.put("/:id", uploadMiddleware, EditTaskValidation, tasks.update);
 
   // Delete a user with id
   router.delete("/:id", tasks.delete);

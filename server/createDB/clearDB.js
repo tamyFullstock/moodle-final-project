@@ -28,10 +28,6 @@ const clearDBTables = function(){
         if (err) throw err;
         console.log("(deleted  courses table successfully");
       });
-      con.query("drop table if exists photos", function (err, result, fields) {
-        if (err) throw err;
-        console.log("(deleted  photos table successfully");
-      });
       con.query("drop table if exists users", function (err, result, fields) {
         if (err) throw err;
         console.log("(deleted users table successfully");

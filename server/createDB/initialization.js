@@ -2,7 +2,6 @@ import mysql from 'mysql2';
 import con from "./connection.js"
 import createDB from "./createMyDB.js"
 import createUsersTable from "./createUsersTable.js"
-import createPhotosTable from "./createPhotosTable.js";
 import createCoursesTable from "./createCoursesTable.js";
 import createCoursesPTable from "./createCoursesPTable.js";
 import createTasksTable from "./createTasksTable.js";
@@ -18,7 +17,6 @@ const initialization = async function(result) {
     await createDB();
     await clearDBTables();
     await createUsersTable();
-    await createPhotosTable();
     await createCoursesTable();
     await createCoursesPTable();
     await createLessonsTable();
